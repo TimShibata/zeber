@@ -75,12 +75,12 @@
                     <td width=312 valign=top style='width:233.75pt;border:solid windowtext 1.0pt;
   padding:0in 5.4pt 0in 5.4pt'>
                         <p class=MsoNormal align=center style='margin-bottom:0in;text-align:center;
-  line-height:normal'><img width=186 height=279 id="Picture 1" src="order_files/image001.jpg"
+  line-height:normal'><img width=186 height=279 id="Picture 1" src="order_files/Miller-Lite.png"
                                 alt="A can of beer with a logo&#10;&#10;Description automatically generated"></p>
                     </td>
                     <td width=312 valign=top style='width:233.75pt;border:solid windowtext 1.0pt;
   border-left:none;padding:0in 5.4pt 0in 5.4pt'>
-                        <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>Sun Beer<br>10 &#162</p>
+                        <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>Miller Lite<br>10 &#162</p>
                     </td>
                     <td><input type="number" value="0" min="0" id="num1" style="font-size: 72px; width: 2ch;"></td>
                     <td><button onclick="increase('num1')" style="font-size: 100px;  width: 2ch;">+</button><br>
@@ -91,14 +91,14 @@
                     <td width=312 valign=top style='width:233.75pt;border:solid windowtext 1.0pt;
   border-top:none;padding:0in 5.4pt 0in 5.4pt'>
                         <p class=MsoNormal align=center style='margin-bottom:0in;text-align:center;
-  line-height:normal'><img width=136 height=230 id="Picture 2" src="order_files/image002.jpg"
+  line-height:normal'><img width=136 height=230 id="Picture 2" src="order_files/generic-beer.jpg"
                                 alt="A can of beer with a blue label and a yellow sun and boats&#10;&#10;Description automatically generated">
                         </p>
                     </td>
                     <td width=312 valign=top style='width:233.75pt;border-top:none;border-left:
   none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
   padding:0in 5.4pt 0in 5.4pt'>
-                        <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>Shorts Beer<br>10 &#162</p>
+                        <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>Beer<br>10 &#162</p>
                     </td>
                     <td><input type="number" value="0" min="0" id="num2" style="font-size: 72px; width: 2ch;"></td>
                     <td><button onclick="increase('num2')" style="font-size: 100px;  width: 2ch;">+</button><br>
@@ -183,32 +183,20 @@
             <table style="font-family: Consolas; font-size: 72px;">
                 <tr>
                     <td>
-                        <label for="cabinNumber">Cabin:</label>
-                        <select id="cabinNumber" name="cabinNumber" style="font-size: 72px;">
-                            <option value="Big House">Big House</option>
-                            <option value="21">21</option>
-                            <option value="22">22</option>
-                            <option value="23">23</option>
-                            <option value="24">24</option>
-                            <option value="25">25</option>
-                            <option value="26">26</option>
-                            <option value="27">27</option>
-                            <option value="28">28</option>
-                            <option value="29">29</option>
-                            <option value="30">30</option>
-                            <option value="31">31</option>
-                            <option value="32">32</option>
-                            <option value="33">33</option>
-                            <option value="34">34</option>
+                        <label for="personID">Person:</label>
+                        <select id="personID" name="personID" style="font-size: 72px;">
+                            <option value="Grandpa">Grandpa</option>
+                            <option value="Grandma">Grandma</option>
+                            <option value="Jess">Jess</option>
+                            <option value="Mario">Mario</option>
+                            <option value="Dad">Dad</option>
+                            <option value="Mom">Mom</option>
+                            <option value="James">James</option>
+                            <option value="Jaclyn">Jaclyn</option>
+                            <option value="Joel">Joel</option>
+                            <option value="Jenn">Jenn</option>
                         </select>
-                        <br>
 
-                        <label for="deliveryLocation">Location:</label>
-                        <select id="deliveryLocation" name="deliveryLocation" style="font-size: 72px;">
-                            <option value="Playground">Playground</option>
-                            <option value="Beach">Beach</option>
-                            <option value="Cabin">Cabin</option>
-                        </select>
                     </td>
                     <td>
                         <button onclick="submit()" style="font-size: 72px;">Submit<br>Order</button>
@@ -245,20 +233,15 @@
 
         // On page load:
         window.onload = function () {
-            const lastSelectedCabin = getCookie('cabinNumber');
-            const lastSelectedLocation = getCookie('deliveryLocation');
+            const lastPersonID = getCookie('personID');
 
             // Populate the drop-down boxes with the last selected values
-            const cabinSelect = document.getElementById('cabinNumber');
-            const locationSelect = document.getElementById('deliveryLocation');
+            const personSelect = document.getElementById('personID');
 
-            if (lastSelectedCabin) {
-                cabinSelect.value = lastSelectedCabin;
+            if (lastPersonID) {
+                personSelect.value = lastPersonID;
             }
 
-            if (lastSelectedLocation) {
-                locationSelect.value = lastSelectedLocation;
-            }
         };
 
         // Call the onload function to set the drop-down box values on page load
@@ -280,17 +263,8 @@
 
 
         function submit() {
-            var itemLookup = {
-                1: "☀️", // Sun emoji
-                2: "🩳", // Shorts emoji
-                3: "🌮", // Tortilla chip
-                4: "🌴", // Hammock emoji
-                5: "🪑", // Chair emoji
-                6: "🚗" // Car emoji
-            };
-
-            setCookie('cabinNumber', document.getElementById('cabinNumber').value);
-            setCookie('deliveryLocation', document.getElementById('deliveryLocation').value);
+            
+            setCookie('personID', document.getElementById('personID').value);
 
             var table = document.getElementById('myTable');
             var inputs = table.getElementsByTagName('input')
@@ -303,10 +277,7 @@
                 out_str += 'item' + [i + 1] + "=" + inputs[i].value + "&";
             }
 
-            out_str += 'cabin=' + document.getElementById('cabinNumber').value;
-            out_str += '&location=' + document.getElementById('deliveryLocation').value;
-
-
+            out_str += 'person=' + document.getElementById('personID').value;
 
             var macroID = 'AKfycbxw_eW2VRCl4ZQY3CIBR-iJmJAste0Xx4LBk22mwuHnT9V1Qi_eRZiHV5IQehaODqnOpQ';
             fetch('https://script.google.com/macros/s/' + macroID + '/exec' + out_str, { mode: 'no-cors' })
