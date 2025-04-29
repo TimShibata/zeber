@@ -47,11 +47,11 @@
         <table id="myTable" border=1 cellspacing=10 cellpadding=10 style='border-collapse:collapse;border:none'>
             <tr>
                 <td class="menu-img-cell">
-                    <img width="186" height="279" id="Picture 1" src="order_files/bells-oberon.jpeg"
+                    <img width="186" height="279" id="Picture 1" src="order_files/Miller-Lite.png"
                         alt="A can of beer with a logo">
                 </td>
                 <td class="menu-description-cell">
-                    Sun Beer<br>10 &#162
+                    Miller Lite<br>10 &#162
                 </td>
                 <td class="menu-cell">
                     <input type="number" value="0" min="0" id="num1" style="font-size: 75px; max-width: 3.5ch;">
@@ -63,11 +63,11 @@
             </tr>
             <tr>
                 <td class="menu-img-cell">
-                    <img width=136 height=230 id="Picture 2" src="order_files/shorts_locals_light.png"
+                    <img width=136 height=230 id="Picture 2" src="order_files/generic-beer.jpg"
                         alt="A can of beer with a blue label and a yellow sun and boats">
                 </td>
                 <td class="menu-description-cell">
-                    Shorts Beer<br>10 &#162
+                    Generic Beer<br>10 &#162
                 </td>
                 <td class="menu-cell">
                     <input type="number" value="0" min="0" id="num2" style="font-size: 75px; max-width: 3.5ch;">
@@ -178,44 +178,25 @@
                 <td>
                     <table style="font-family: Consolas; font-size: 60px;">
                         <tr>
+
                             <td>
-                                <label for="cabinNumber" style="font-size: 60px;">
-                                    Cabin:
-                                </label>
-                            </td>
-                            <td>
-                                <select id="cabinNumber" name="cabinNumber" style="font-size: 60px;">
-                                    <option value="Big House">Big House</option>
-                                    <option value="21">21</option>
-                                    <option value="22">22</option>
-                                    <option value="23">23</option>
-                                    <option value="24">24</option>
-                                    <option value="25">25</option>
-                                    <option value="26">26</option>
-                                    <option value="27">27</option>
-                                    <option value="28">28</option>
-                                    <option value="29">29</option>
-                                    <option value="30">30</option>
-                                    <option value="31">31</option>
-                                    <option value="32">32</option>
-                                    <option value="33">33</option>
-                                    <option value="34">34</option>
+                                <label for="personID">Person:</label>
+                                <select id="personID" name="personID" style="font-size: 72px;">
+                                    <option value="Grandpa">Grandpa</option>
+                                    <option value="Grandma">Grandma</option>
+                                    <option value="Jess">Jess</option>
+                                    <option value="Mario">Mario</option>
+                                    <option value="Dad">Dad</option>
+                                    <option value="Mom">Mom</option>
+                                    <option value="James">James</option>
+                                    <option value="Jaclyn">Jaclyn</option>
+                                    <option value="Joel">Joel</option>
+                                    <option value="Jenn">Jenn</option>
                                 </select>
+
                             </td>
                         </tr>
-                        <tr>
-                            <td>
-                                <label for="deliveryLocation" style="font-size: 60px;">
-                                    Location:
-                                </label>
-                            </td>
-                            <td>
-                                <select id="deliveryLocation" name="deliveryLocation" style="font-size: 60px;">
-                                    <option value="Playground">Playground</option>
-                                    <option value="Beach">Beach</option>
-                                    <option value="Cabin">Cabin</option>
-                                </select>
-                            </td>
+
                     </table>
                 <td>
                     <button id="submitBtn" type="submit" onclick="submit()" style="font-size: 60px;">
@@ -254,17 +235,15 @@
         }
         // On page load:
         window.onload = function () {
-            const lastSelectedCabin = getCookie('cabinNumber');
-            const lastSelectedLocation = getCookie('deliveryLocation');
+            const lastPersonID = getCookie('personID');
+
             // Populate the drop-down boxes with the last selected values
-            const cabinSelect = document.getElementById('cabinNumber');
-            const locationSelect = document.getElementById('deliveryLocation');
-            if (lastSelectedCabin) {
-                cabinSelect.value = lastSelectedCabin;
+            const personSelect = document.getElementById('personID');
+
+            if (lastPersonID) {
+                personSelect.value = lastPersonID;
             }
-            if (lastSelectedLocation) {
-                locationSelect.value = lastSelectedLocation;
-            }
+
         };
         // Call the onload function to set the drop-down box values on page load
         window.onload();
@@ -279,18 +258,8 @@
             }
         }
         function submit() {
-            var itemLookup = {
-                1: "☀️", // Sun emoji
-                2: "🩳", // Shorts emoji
-                3: "🍺", // Beer emoji
-                4: "🌮", // Tortilla chip
-                5: "🪑", // Chair emoji
-                6: "🌴", // Hammock emoji
-                7: "🏐", // Volleyball emoji
-                8: "🏆", // Trophy emoji
-            };
-            setCookie('cabinNumber', document.getElementById('cabinNumber').value);
-            setCookie('deliveryLocation', document.getElementById('deliveryLocation').value);
+
+            setCookie('personID', document.getElementById('personID').value);
 
             document.getElementById('output').innerText = "Submitting order...";
             document.getElementById('submitBtn').innerHTML = "Submitting...";
@@ -304,9 +273,10 @@
                 items.push('item ' + (i + 1) + ': ' + inputs[i].value);
                 out_str += 'item' + [i + 1] + "=" + inputs[i].value + "&";
             }
-            out_str += 'cabin=' + document.getElementById('cabinNumber').value;
-            out_str += '&location=' + document.getElementById('deliveryLocation').value;
-            var macroID = 'AKfycbxj7YWeHgJXqYLvBL52Gw6xANbbuO5n7gbgqxgNDUPtcneniCMyWfzOYX084hJoZtDBKQ';
+
+            out_str += 'person=' + document.getElementById('personID').value;
+
+            var macroID = 'AKfycbxw_eW2VRCl4ZQY3CIBR-iJmJAste0Xx4LBk22mwuHnT9V1Qi_eRZiHV5IQehaODqnOpQ';
             fetch('https://script.google.com/macros/s/' + macroID + '/exec' + out_str, { mode: 'no-cors' })
                 .then(response => response.text())
                 .then(data => {
