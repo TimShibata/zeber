@@ -48,21 +48,34 @@
         }
 
         .menu-img-cell {
-            width: 312px;
-            vertical-align: top;
-
+            width: 30%;
+            vertical-align: middle;
+            text-align: center;
             border: solid 1px;
-            padding: 0pt 5.4pt 0pt 5.4pt;
+            padding: 0pt 0pt 0pt 0pt;
         }
 
-        .menu-control-cell {
-            width: 312px;
+        .menu-description-cell {
+            width: 30%;
             vertical-align: middle;
             border-top: none;
             border-left: none;
-            border-bottom: 1pt solid windowtext;
-            border-right: 1pt solid windowtext;
-            padding: 0in 5.4pt 0in 5.4pt;
+            padding: 0pt 0pt 0pt 0pt;
+            font-size: 26.0pt;
+            font-family: "Calibri", sans-serif;
+        }
+
+        .menu-cell {
+            width: 20%;
+            vertical-align: middle;
+            text-align: center;
+            ;
+            font-size: 72px;
+            width: 2ch;
+            font-family: "Calibri", sans-serif;
+            border-top: none;
+            border-left: none;
+            padding: 0pt 0pt 0pt 0pt;
         }
         -->
     </style>
@@ -82,156 +95,182 @@
             <table id="myTable" class=MsoTableGrid border=1 cellspacing=0 cellpadding=0
                 style='border-collapse:collapse;border:none'>
                 <tr>
-                    <td class="menu-img-cell" style="vertical-align: middle; text-align: center;">
-                        <p class="MsoNormal align-center no-margin" style="margin: 0; padding: 0;">
-                            <img width="186" height="279" id="Picture 1" src="order_files/image001.jpg"
-                                alt="A can of beer with a logo"
-                                style="display: block; margin: 0 auto; vertical-align: middle;">
-                        </p>
+                    <td class="menu-img-cell">
+                        <img width="186" height="279" id="Picture 1" src="order_files/bells-oberon.jpeg"
+                            alt="A can of beer with a logo">
                     </td>
-                    <td class="menu-control-cell">
-                        <p class="MsoNormal align-center no-margin">Sun Beer<br>10 &#162</p>
+                    <td class="menu-description-cell">
+                        Sun Beer<br>10 &#162
                     </td>
-                    <td><input type="number" value="0" min="0" id="num1" style="font-size: 72px; width: 2ch;"></td>
-                    <td><button onclick="increase('num1')" style="font-size: 100px; width: 2ch;">+</button><br>
+                    <td class="menu-cell">
+                        <input type=" number" value="0" min="0" id="num1" style="font-size: 72px; width: 2ch;">
+                    </td>
+                    <td class="menu-cell"><button onclick="increase('num1')"
+                            style="font-size: 100px; width: 2ch;">+</button><br>
                         <button onclick="decrease('num1')" style="font-size: 100px; width: 2ch;">-</button>
                     </td>
                 </tr>
                 <tr>
-                    <td class="menu-img-cell" style="vertical-align: middle; text-align: center;">
-                        <p class="MsoNormal align-center no-margin" style="margin: 0; padding: 0;">
-
-                            <img width=136 height=230 id="Picture 2" src="order_files/image002.jpg"
-                                alt="A can of beer with a blue label and a yellow sun and boats">
-                        </p>
+                    <td class="menu-img-cell">
+                        <img width=136 height=230 id="Picture 2" src="order_files/shorts_locals_light.png"
+                            alt="A can of beer with a blue label and a yellow sun and boats">
                     </td>
-                    <td class="menu-control-cell">
+                    <td class="menu-description-cell">
                         <p class="MsoNormal align-center no-margin"> Shorts Beer<br>10 &#162</p>
                     </td>
-                    <td><input type="number" value="0" min="0" id="num2" style="font-size: 72px; width: 2ch;"></td>
-                    <td><button onclick="increase('num2')" style="font-size: 100px; width: 2ch;">+</button><br>
+                    <td class="menu-cell"><input type="number" value="0" min="0" id="num2"
+                            style="font-size: 72px; width: 2ch;"></td>
+                    <td class="menu-cell"><button onclick="increase('num2')"
+                            style="font-size: 100px; width: 2ch;">+</button><br>
                         <button onclick="decrease('num2')" style="font-size: 100px; width: 2ch;">-</button>
                     </td>
                 </tr>
                 <tr>
-                    <td class="menu-img-cell" style="vertical-align: middle; text-align: center;">
+                    <td class="menu-img-cell">
                         <p class="MsoNormal align-center no-margin" style="margin: 0; padding: 0;">
-                            <img width=221 height=173 id="Picture 3" src="order_files/image003.jpg" alt="beer running">
+                            <img width=221 height=173 id="Picture 3" src="order_files/beer_running.jpeg"
+                                alt="beer running">
                         </p>
                     </td>
-                    <td class="menu-control-cell">
+                    <td class="menu-description-cell">
                         <p class="MsoNormal align-center no-margin">Any beer delivery<br>10 &#162</p>
                     </td>
-                    <td><input type="number" value="0" min="0" id="num3" style="font-size: 72px; width: 2ch;"></td>
-                    <td><button onclick="increase('num3')" style="font-size: 100px; width: 2ch;">+</button><br>
+                    <td class="menu-cell"><input type="number" value="0" min="0" id="num3"
+                            style="font-size: 72px; width: 2ch;"></td>
+                    <td class="menu-cell"><button onclick="increase('num3')"
+                            style="font-size: 100px; width: 2ch;">+</button><br>
                         <button onclick="decrease('num3')" style="font-size: 100px; width: 2ch;">-</button>
                     </td>
                 </tr>
                 <tr>
-                    <td class="menu-img-cell" style="vertical-align: middle; text-align: center;">
+                    <td class="menu-img-cell">
                         <p class="MsoNormal align-center no-margin" style="margin: 0; padding: 0;">
-                            <img width=199 height=199 id="Picture 4" src="order_files/image004.jpg" alt="chips">
+                            <img width=199 height=199 id="Picture 4" src="order_files/chips_and_guacamole.jpg"
+                                alt="chips">
                         </p>
                     </td>
-                    <td class="menu-control-cell">
-                        <p class="MsoNormal align-center no-margin">Chips<br>3 &#162</p>
+                    <td class="menu-description-cell">
+                        <p class="MsoNormal align-center no-margin">Chips<br>10 &#162</p>
                     </td>
-                    <td><input type="number" value="0" min="0" id="num4" style="font-size: 72px; width: 2ch;"></td>
-                    <td><button onclick="increase('num4')" style="font-size: 100px; width: 2ch;">+</button><br>
+                    <td class="menu-cell"><input type="number" value="0" min="0" id="num4"
+                            style="font-size: 72px; width: 2ch;"></td>
+                    <td class="menu-cell"><button onclick="increase('num4')"
+                            style="font-size: 100px; width: 2ch;">+</button><br>
                         <button onclick="decrease('num4')" style="font-size: 100px; width: 2ch;">-</button>
                     </td>
                 </tr>
                 <tr>
-                    <td class="menu-img-cell" style="vertical-align: middle; text-align: center;">
+                    <td class="menu-img-cell">
                         <p class="MsoNormal align-center no-margin" style="margin: 0; padding: 0;">
                             <img width=281 height=256 id="Picture 5" src="order_files/chair.jpg"
                                 alt="A green folding chair with a cup holder">
                         </p>
                     </td>
-                    <td class="menu-control-cell">
-                        <p class="MsoNormal align-center no-margin">Chair moving services<br>3 &#162</p>
+                    <td class="menu-description-cell">
+                        <p class="MsoNormal align-center no-margin">Chair moving services<br>5 &#162</p>
                     </td>
-                    <td><input type="number" value="0" min="0" id="num5" style="font-size: 72px; width: 2ch;"></td>
-                    <td><button onclick="increase('num5')" style="font-size: 100px; width: 2ch;">+</button><br>
+                    <td class="menu-cell"><input type="number" value="0" min="0" id="num5"
+                            style="font-size: 72px; width: 2ch;"></td>
+                    <td class="menu-cell"><button onclick="increase('num5')"
+                            style="font-size: 100px; width: 2ch;">+</button><br>
                         <button onclick="decrease('num5')" style="font-size: 100px; width: 2ch;">-</button>
                     </td>
                 </tr>
                 <tr>
-                    <td class="menu-img-cell" style="vertical-align: middle; text-align: center;">
+                    <td class="menu-img-cell">
                         <p class="MsoNormal align-center no-margin" style="margin: 0; padding: 0;">
-                            <img width=254 height=167 id="Picture 6" src="order_files/image006.jpg" alt="hammock">
+                            <img width=254 height=167 id="Picture 6" src="order_files/hammock.jpeg" alt="hammock">
                         </p>
                     </td>
-                    <td class="menu-control-cell">
+                    <td class="menu-description-cell">
                         <p class="MsoNormal align-center no-margin">Hammock rental<br>15 &#162 per hour</p>
                     </td>
-                    <td><input type="number" value="0" min="0" id="num6" style="font-size: 72px; width: 2ch;"></td>
-                    <td><button onclick="increase('num6')" style="font-size: 100px; width: 2ch;">+</button><br>
+                    <td class="menu-cell"><input type="number" value="0" min="0" id="num6"
+                            style="font-size: 72px; width: 2ch;"></td>
+                    <td class="menu-cell"><button onclick="increase('num6')"
+                            style="font-size: 100px; width: 2ch;">+</button><br>
                         <button onclick="decrease('num6')" style="font-size: 100px; width: 2ch;">-</button>
                     </td>
                 </tr>
                 <tr>
-                    <td class="menu-img-cell" style="vertical-align: middle; text-align: center;">
+                    <td class="menu-img-cell">
                         <p class="MsoNormal align-center no-margin" style="margin: 0; padding: 0;">
-                            <img width=254 height=167 id="Picture 7" src="order_files/image007.jpg"
+                            <img width=254 height=167 id="Picture 7" src="order_files/redball_poster.jpg"
                                 alt="redball entertainment">
                         </p>
                     </td>
-                    <td class="menu-control-cell">
-                        <p class="MsoNormal align-center no-margin">Redball tournament tickets<br>15 &#162</p>
+                    <td class="menu-description-cell">
+                        <p class="MsoNormal align-center no-margin">Redball tournament tickets<br>10 &#162</p>
                     </td>
-                    <td><input type="number" value="0" min="0" id="num7" style="font-size: 72px; width: 2ch;"></td>
-                    <td><button onclick="increase('num7')" style="font-size: 100px; width: 2ch;">+</button><br>
+                    <td class="menu-cell"><input type="number" value="0" min="0" id="num7"
+                            style="font-size: 72px; width: 2ch;"></td>
+                    <td class="menu-cell"><button onclick="increase('num7')"
+                            style="font-size: 100px; width: 2ch;">+</button><br>
                         <button onclick="decrease('num7')" style="font-size: 100px; width: 2ch;">-</button>
                     </td>
                 </tr>
 
                 <tr>
-                    <td class="menu-img-cell" style="vertical-align: middle; text-align: center;">
+                    <td class="menu-img-cell">
                         <p class="MsoNormal align-center no-margin" style="margin: 0; padding: 0;">
 
-                            <img width=254 height=167 id="Picture 8" src="order_files/image008.jpg"
+                            <img width=254 height=167 id="Picture 8"
+                                src="order_files/trophy-on-field-under-stadium-lights-at-night-photo.jpg"
                                 alt="redball tournament trophy">
                         </p>
                     </td>
-                    <td class="menu-control-cell">
-                        <p class="MsoNormal align-center no-margin">Redball tournament registration fee<br>20 &#162</p>
+                    <td class="menu-description-cell">
+                        <p class="MsoNormal align-center no-margin">Redball tournament registration fee<br>10 &#162</p>
                     </td>
-                    <td><input type="number" value="0" min="0" id="num8" style="font-size: 72px; width: 2ch;"></td>
-                    <td><button onclick="increase('num8')" style="font-size: 100px; width: 2ch;">+</button><br>
+                    <td class="menu-cell"><input type="number" value="0" min="0" id="num8"
+                            style="font-size: 72px; width: 2ch;"></td>
+                    <td class="menu-cell"><button onclick="increase('num8')"
+                            style="font-size: 100px; width: 2ch;">+</button><br>
                         <button onclick="decrease('num8')" style="font-size: 100px; width: 2ch;">-</button>
                     </td>
                 </tr>
             </table>
+            <br>
             <table style="font-family: Consolas; font-size: 72px;">
                 <tr>
                     <td>
-                        <label for="cabinNumber">Cabin:</label>
-                        <select id="cabinNumber" name="cabinNumber" style="font-size: 72px;">
-                            <option value="Big House">Big House</option>
-                            <option value="21">21</option>
-                            <option value="22">22</option>
-                            <option value="23">23</option>
-                            <option value="24">24</option>
-                            <option value="25">25</option>
-                            <option value="26">26</option>
-                            <option value="27">27</option>
-                            <option value="28">28</option>
-                            <option value="29">29</option>
-                            <option value="30">30</option>
-                            <option value="31">31</option>
-                            <option value="32">32</option>
-                            <option value="33">33</option>
-                            <option value="34">34</option>
-                        </select>
-                        <br>
-                        <label for="deliveryLocation">Location:</label>
-                        <select id="deliveryLocation" name="deliveryLocation" style="font-size: 72px;">
-                            <option value="Playground">Playground</option>
-                            <option value="Beach">Beach</option>
-                            <option value="Cabin">Cabin</option>
-                        </select>
-                    </td>
+                        <table style="font-family: Consolas; font-size: 72px;">
+                            <tr>
+                                <td>
+                                    <label for="cabinNumber">Cabin:</label>
+                                </td>
+                                <td>
+                                    <select id="cabinNumber" name="cabinNumber" style="font-size: 72px;">
+                                        <option value="Big House">Big House</option>
+                                        <option value="21">21</option>
+                                        <option value="22">22</option>
+                                        <option value="23">23</option>
+                                        <option value="24">24</option>
+                                        <option value="25">25</option>
+                                        <option value="26">26</option>
+                                        <option value="27">27</option>
+                                        <option value="28">28</option>
+                                        <option value="29">29</option>
+                                        <option value="30">30</option>
+                                        <option value="31">31</option>
+                                        <option value="32">32</option>
+                                        <option value="33">33</option>
+                                        <option value="34">34</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label for="deliveryLocation">Location:</label>
+                                </td>
+                                <td>
+                                    <select id="deliveryLocation" name="deliveryLocation" style="font-size: 72px;">
+                                        <option value="Playground">Playground</option>
+                                        <option value="Beach">Beach</option>
+                                        <option value="Cabin">Cabin</option>
+                                    </select>
+                                </td>
+                        </table>
                     <td>
                         <button type="submit" onclick="submit()" style="font-size: 72px;">Submit<br>Order</button>
                     </td>
