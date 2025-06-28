@@ -272,7 +272,8 @@
                                 </td>
                         </table>
                     <td>
-                        <button type="submit" onclick="submit()" style="font-size: 72px;">Submit<br>Order</button>
+                        <button id="submitBtn" type="submit" onclick="submit()"
+                            style="font-size: 72px;">Submit<br>Order</button>
                     </td>
                 </tr>
             </table>
@@ -335,6 +336,11 @@
             };
             setCookie('cabinNumber', document.getElementById('cabinNumber').value);
             setCookie('deliveryLocation', document.getElementById('deliveryLocation').value);
+            
+            document.getElementById('output').innerText = "Submitting order...";
+            document.getElementById('submitBtn').innerHTML = "Submitting...";
+            document.getElementById('submitBtn').disabled = true;
+
             var table = document.getElementById('myTable');
             var inputs = table.getElementsByTagName('input')
             var items = [];
