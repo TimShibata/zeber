@@ -1,18 +1,18 @@
 <html>
 
 <head>
-    <meta http-equiv=Content-Type content="text/html; charset=windows-1252">
-    <meta name=Generator content="Microsoft Word 15 (filtered)">
     <style>
         <!--
         /* Font Definitions */
         @font-face {
             font-family: "Cambria Math";
+            src: local("Cambria Math"), url("CambriaMath.woff2") format("woff2");
             panose-1: 2 4 5 3 5 4 6 3 2 4;
         }
 
         @font-face {
             font-family: Calibri;
+            src: local("Calibri"), url("Calibri.woff2") format("woff2");
             panose-1: 2 15 5 2 2 2 4 3 2 4;
         }
 
@@ -46,140 +46,163 @@
         div.WordSection1 {
             page: WordSection1;
         }
+
+        .menu-img-cell {
+            width: 312px;
+            vertical-align: top;
+
+            border: solid 1px;
+            padding: 0pt 5.4pt 0pt 5.4pt;
+        }
+
+        .menu-control-cell {
+            width: 312px;
+            vertical-align: middle;
+            border-top: none;
+            border-left: none;
+            border-bottom: 1pt solid windowtext;
+            border-right: 1pt solid windowtext;
+            padding: 0in 5.4pt 0in 5.4pt;
+        }
         -->
     </style>
-
 </head>
 
 <body lang=EN-US style='word-wrap:break-word'>
-
     <div class=WordSection1>
-
         <p class=MsoNormal>&nbsp;</p>
-
         <p class=MsoNormal>&nbsp;</p>
-
         <p class=MsoNormal align=center style='text-align:center'><span
                 style='font-size:48.0pt;line-height:107%'>ZEBER</span></p>
-
-        <p class=MsoNormal align=center style='text-align:center'><span style='font-size:36.0pt;line-height:107%'>Hours
-                of operation 4:30 - 7:00</span></p>
-
+        <p class=MsoNormal align=center style='text-align:center'>
+            <span style='font-size:36.0pt;line-height:107%'>Hours of operation 4:30 - 7:00</span>
+        </p>
         <p class=MsoNormal>&nbsp;</p>
-
         <div align=center>
-
             <table id="myTable" class=MsoTableGrid border=1 cellspacing=0 cellpadding=0
                 style='border-collapse:collapse;border:none'>
                 <tr>
-                    <td width=312 valign=top style='width:233.75pt;border:solid windowtext 1.0pt;
-  padding:0in 5.4pt 0in 5.4pt'>
-                        <p class=MsoNormal align=center style='margin-bottom:0in;text-align:center;
-  line-height:normal'><img width=186 height=279 id="Picture 1" src="order_files/image001.jpg"
-                                alt="A can of beer with a logo&#10;&#10;Description automatically generated"></p>
+                    <td class="menu-img-cell" style="vertical-align: middle; text-align: center;">
+                        <p class="MsoNormal align-center no-margin" style="margin: 0; padding: 0;">
+                            <img width="186" height="279" id="Picture 1" src="order_files/image001.jpg"
+                                alt="A can of beer with a logo"
+                                style="display: block; margin: 0 auto; vertical-align: middle;">
+                        </p>
                     </td>
-                    <td width=312 valign=top style='width:233.75pt;border:solid windowtext 1.0pt;
-  border-left:none;padding:0in 5.4pt 0in 5.4pt'>
-                        <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>Sun Beer<br>10 &#162</p>
+                    <td class="menu-control-cell">
+                        <p class="MsoNormal align-center no-margin">Sun Beer<br>10 &#162</p>
                     </td>
                     <td><input type="number" value="0" min="0" id="num1" style="font-size: 72px; width: 2ch;"></td>
-                    <td><button onclick="increase('num1')" style="font-size: 100px;  width: 2ch;">+</button><br>
+                    <td><button onclick="increase('num1')" style="font-size: 100px; width: 2ch;">+</button><br>
                         <button onclick="decrease('num1')" style="font-size: 100px; width: 2ch;">-</button>
                     </td>
                 </tr>
                 <tr>
-                    <td width=312 valign=top style='width:233.75pt;border:solid windowtext 1.0pt;
-  border-top:none;padding:0in 5.4pt 0in 5.4pt'>
-                        <p class=MsoNormal align=center style='margin-bottom:0in;text-align:center;
-  line-height:normal'><img width=136 height=230 id="Picture 2" src="order_files/image002.jpg"
-                                alt="A can of beer with a blue label and a yellow sun and boats&#10;&#10;Description automatically generated">
+                    <td class="menu-img-cell" style="vertical-align: middle; text-align: center;">
+                        <p class="MsoNormal align-center no-margin" style="margin: 0; padding: 0;">
+
+                            <img width=136 height=230 id="Picture 2" src="order_files/image002.jpg"
+                                alt="A can of beer with a blue label and a yellow sun and boats">
                         </p>
                     </td>
-                    <td width=312 valign=top style='width:233.75pt;border-top:none;border-left:
-  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
-  padding:0in 5.4pt 0in 5.4pt'>
-                        <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>Shorts Beer<br>10 &#162</p>
+                    <td class="menu-control-cell">
+                        <p class="MsoNormal align-center no-margin"> Shorts Beer<br>10 &#162</p>
                     </td>
                     <td><input type="number" value="0" min="0" id="num2" style="font-size: 72px; width: 2ch;"></td>
-                    <td><button onclick="increase('num2')" style="font-size: 100px;  width: 2ch;">+</button><br>
+                    <td><button onclick="increase('num2')" style="font-size: 100px; width: 2ch;">+</button><br>
                         <button onclick="decrease('num2')" style="font-size: 100px; width: 2ch;">-</button>
                     </td>
                 </tr>
                 <tr>
-                    <td width=312 valign=top style='width:233.75pt;border:solid windowtext 1.0pt;
-  border-top:none;padding:0in 5.4pt 0in 5.4pt'>
-                        <p class=MsoNormal align=center style='margin-bottom:0in;text-align:center;
-  line-height:normal'><img width=221 height=173 id="Picture 3" src="order_files/image003.jpg"
-                                alt="A bowl of guacamole and chips on a blue plate&#10;&#10;Description automatically generated">
+                    <td class="menu-img-cell" style="vertical-align: middle; text-align: center;">
+                        <p class="MsoNormal align-center no-margin" style="margin: 0; padding: 0;">
+                            <img width=221 height=173 id="Picture 3" src="order_files/image003.jpg" alt="beer running">
                         </p>
                     </td>
-                    <td width=312 valign=top style='width:233.75pt;border-top:none;border-left:
-  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
-  padding:0in 5.4pt 0in 5.4pt'>
-                        <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>Chips<br>3 &#162</p>
+                    <td class="menu-control-cell">
+                        <p class="MsoNormal align-center no-margin">Any beer delivery<br>10 &#162</p>
                     </td>
                     <td><input type="number" value="0" min="0" id="num3" style="font-size: 72px; width: 2ch;"></td>
-                    <td><button onclick="increase('num3')" style="font-size: 100px;  width: 2ch;">+</button><br>
+                    <td><button onclick="increase('num3')" style="font-size: 100px; width: 2ch;">+</button><br>
                         <button onclick="decrease('num3')" style="font-size: 100px; width: 2ch;">-</button>
                     </td>
                 </tr>
                 <tr>
-                    <td width=312 valign=top style='width:233.75pt;border:solid windowtext 1.0pt;
-  border-top:none;padding:0in 5.4pt 0in 5.4pt'>
-                        <p class=MsoNormal align=center style='margin-bottom:0in;text-align:center;
-  line-height:normal'><img width=199 height=199 id="Picture 4" src="order_files/image004.jpg"
-                                alt="A hammock from a tree on a beach&#10;&#10;Description automatically generated"></p>
+                    <td class="menu-img-cell" style="vertical-align: middle; text-align: center;">
+                        <p class="MsoNormal align-center no-margin" style="margin: 0; padding: 0;">
+                            <img width=199 height=199 id="Picture 4" src="order_files/image004.jpg" alt="chips">
+                        </p>
                     </td>
-                    <td width=312 valign=top style='width:233.75pt;border-top:none;border-left:
-  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
-  padding:0in 5.4pt 0in 5.4pt'>
-                        <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>Hammock
-                            rental <br>15 &#162 per hour</p>
+                    <td class="menu-control-cell">
+                        <p class="MsoNormal align-center no-margin">Chips<br>3 &#162</p>
                     </td>
                     <td><input type="number" value="0" min="0" id="num4" style="font-size: 72px; width: 2ch;"></td>
-                    <td><button onclick="increase('num4')" style="font-size: 100px;  width: 2ch;">+</button><br>
+                    <td><button onclick="increase('num4')" style="font-size: 100px; width: 2ch;">+</button><br>
                         <button onclick="decrease('num4')" style="font-size: 100px; width: 2ch;">-</button>
                     </td>
                 </tr>
                 <tr>
-                    <td width=312 valign=top style='width:233.75pt;border:solid windowtext 1.0pt;
-  border-top:none;padding:0in 5.4pt 0in 5.4pt'>
-                        <p class=MsoNormal align=center style='margin-bottom:0in;text-align:center;
-  line-height:normal'><img width=281 height=256 id="Picture 5" src="order_files/chair.jpg"
-                                alt="A green folding chair with a cup holder&#10;&#10;Description automatically generated">
+                    <td class="menu-img-cell" style="vertical-align: middle; text-align: center;">
+                        <p class="MsoNormal align-center no-margin" style="margin: 0; padding: 0;">
+                            <img width=281 height=256 id="Picture 5" src="order_files/chair.jpg"
+                                alt="A green folding chair with a cup holder">
                         </p>
                     </td>
-                    <td width=312 valign=top style='width:233.75pt;border-top:none;border-left:
-  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
-  padding:0in 5.4pt 0in 5.4pt'>
-                        <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>Chair moving
-                            services<br>3 &#162</p>
+                    <td class="menu-control-cell">
+                        <p class="MsoNormal align-center no-margin">Chair moving services<br>3 &#162</p>
                     </td>
                     <td><input type="number" value="0" min="0" id="num5" style="font-size: 72px; width: 2ch;"></td>
-                    <td><button onclick="increase('num5')" style="font-size: 100px;  width: 2ch;">+</button><br>
+                    <td><button onclick="increase('num5')" style="font-size: 100px; width: 2ch;">+</button><br>
                         <button onclick="decrease('num5')" style="font-size: 100px; width: 2ch;">-</button>
                     </td>
                 </tr>
                 <tr>
-                    <td width=312 valign=top style='width:233.75pt;border:solid windowtext 1.0pt;
-  border-top:none;padding:0in 5.4pt 0in 5.4pt'>
-                        <p class=MsoNormal align=center style='margin-bottom:0in;text-align:center;
-  line-height:normal'><img width=254 height=167 id="Picture 6" src="order_files/image006.jpg"
-                                alt="A white van with black wheels&#10;&#10;Description automatically generated"></p>
+                    <td class="menu-img-cell" style="vertical-align: middle; text-align: center;">
+                        <p class="MsoNormal align-center no-margin" style="margin: 0; padding: 0;">
+                            <img width=254 height=167 id="Picture 6" src="order_files/image006.jpg" alt="hammock">
+                        </p>
                     </td>
-                    <td width=312 valign=top style='width:233.75pt;border-top:none;border-left:
-  none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
-  padding:0in 5.4pt 0in 5.4pt'>
-                        <p class=MsoNormal style='margin-bottom:0in;line-height:normal'>Ride to the
-                            beach<br>4 &#162</p>
+                    <td class="menu-control-cell">
+                        <p class="MsoNormal align-center no-margin">Hammock rental<br>15 &#162 per hour</p>
                     </td>
                     <td><input type="number" value="0" min="0" id="num6" style="font-size: 72px; width: 2ch;"></td>
-                    <td><button onclick="increase('num6')" style="font-size: 100px;  width: 2ch;">+</button><br>
+                    <td><button onclick="increase('num6')" style="font-size: 100px; width: 2ch;">+</button><br>
+                        <button onclick="decrease('num6')" style="font-size: 100px; width: 2ch;">-</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="menu-img-cell" style="vertical-align: middle; text-align: center;">
+                        <p class="MsoNormal align-center no-margin" style="margin: 0; padding: 0;">
+                            <img width=254 height=167 id="Picture 7" src="order_files/image007.jpg"
+                                alt="redball entertainment">
+                        </p>
+                    </td>
+                    <td class="menu-control-cell">
+                        <p class="MsoNormal align-center no-margin">Redball tournament tickets<br>15 &#162</p>
+                    </td>
+                    <td><input type="number" value="0" min="0" id="num7" style="font-size: 72px; width: 2ch;"></td>
+                    <td><button onclick="increase('num6')" style="font-size: 100px; width: 2ch;">+</button><br>
+                        <button onclick="decrease('num6')" style="font-size: 100px; width: 2ch;">-</button>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="menu-img-cell" style="vertical-align: middle; text-align: center;">
+                        <p class="MsoNormal align-center no-margin" style="margin: 0; padding: 0;">
+
+                            <img width=254 height=167 id="Picture 8" src="order_files/image008.jpg"
+                                alt="redball tournament trophy">
+                        </p>
+                    </td>
+                    <td class="menu-control-cell">
+                        <p class="MsoNormal align-center no-margin">Redball tournament registration fee<br>20 &#162</p>
+                    </td>
+                    <td><input type="number" value="0" min="0" id="num8" style="font-size: 72px; width: 2ch;"></td>
+                    <td><button onclick="increase('num6')" style="font-size: 100px; width: 2ch;">+</button><br>
                         <button onclick="decrease('num6')" style="font-size: 100px; width: 2ch;">-</button>
                     </td>
                 </tr>
             </table>
-
             <table style="font-family: Consolas; font-size: 72px;">
                 <tr>
                     <td>
@@ -202,7 +225,6 @@
                             <option value="34">34</option>
                         </select>
                         <br>
-
                         <label for="deliveryLocation">Location:</label>
                         <select id="deliveryLocation" name="deliveryLocation" style="font-size: 72px;">
                             <option value="Playground">Playground</option>
@@ -211,26 +233,19 @@
                         </select>
                     </td>
                     <td>
-                        <button onclick="submit()" style="font-size: 72px;">Submit<br>Order</button>
+                        <button type="submit" onclick="submit()" style="font-size: 72px;">Submit<br>Order</button>
                     </td>
                 </tr>
             </table>
-
-
         </div>
-
     </div>
-
     <div id="output"> </div>
-
     <script>
-
         // Set the cookie with the selected values
         function setCookie(name, value) {
-            console.log('cookie ' +  name + ' = ' + value);
+            console.log('cookie ' + name + ' = ' + value);
             document.cookie = `${name}=${value}; path=/`;
         }
-
         // Read the cookie value
         function getCookie(name) {
             const cookies = document.cookie.split('; ');
@@ -242,89 +257,68 @@
             }
             return null;
         }
-
         // On page load:
         window.onload = function () {
             const lastSelectedCabin = getCookie('cabinNumber');
             const lastSelectedLocation = getCookie('deliveryLocation');
-
             // Populate the drop-down boxes with the last selected values
             const cabinSelect = document.getElementById('cabinNumber');
             const locationSelect = document.getElementById('deliveryLocation');
-
             if (lastSelectedCabin) {
                 cabinSelect.value = lastSelectedCabin;
             }
-
             if (lastSelectedLocation) {
                 locationSelect.value = lastSelectedLocation;
             }
         };
-
         // Call the onload function to set the drop-down box values on page load
         window.onload();
-
-
-
         function increase(id) {
             var input = document.getElementById(id);
             input.value = parseInt(input.value) + 1;
         }
-
         function decrease(id) {
             var input = document.getElementById(id);
             if (input.value > 0) {
                 input.value = parseInt(input.value) - 1;
             }
         }
-
-
         function submit() {
             var itemLookup = {
                 1: "☀️", // Sun emoji
                 2: "🩳", // Shorts emoji
-                3: "🌮", // Tortilla chip
-                4: "🌴", // Hammock emoji
+                3: "🍺", // Beer emoji
+                4: "🌮", // Tortilla chip
                 5: "🪑", // Chair emoji
-                6: "🚗" // Car emoji
+                6: "🌴", // Hammock emoji
+                7: "🏐", // Volleyball emoji
+                8: "🏆", // Trophy emoji
             };
-
             setCookie('cabinNumber', document.getElementById('cabinNumber').value);
             setCookie('deliveryLocation', document.getElementById('deliveryLocation').value);
-
             var table = document.getElementById('myTable');
             var inputs = table.getElementsByTagName('input')
-
             var items = [];
             var out_str = "?";
-
             for (var i = 0; i < inputs.length; i++) {
                 items.push('item ' + (i + 1) + ': ' + inputs[i].value);
                 out_str += 'item' + [i + 1] + "=" + inputs[i].value + "&";
             }
-
             out_str += 'cabin=' + document.getElementById('cabinNumber').value;
             out_str += '&location=' + document.getElementById('deliveryLocation').value;
-
-
-
-            var macroID = 'AKfycbxw_eW2VRCl4ZQY3CIBR-iJmJAste0Xx4LBk22mwuHnT9V1Qi_eRZiHV5IQehaODqnOpQ';
+            var macroID = 'AKfycbxj7YWeHgJXqYLvBL52Gw6xANbbuO5n7gbgqxgNDUPtcneniCMyWfzOYX084hJoZtDBKQ';
             fetch('https://script.google.com/macros/s/' + macroID + '/exec' + out_str, { mode: 'no-cors' })
                 .then(response => response.text())
                 .then(data => {
                     console.log(data); // Write response data to the console
                     document.getElementById('output').innerText = data;
+                    window.location.href = "checkout.html";
                 })
                 .catch(error => {
                     console.error('Error:', error);
                 });
-
-            // navigate to the next page
-            window.location.href = "checkout.html";
         }
-
     </script>
-
 </body>
 
 </html>
