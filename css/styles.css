@@ -96,7 +96,7 @@ img {
   left: 0;
   right: 0;
   font-family: "Consolas";
-  font-size: 1.5em;
+  font-size: 2.5em;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -127,7 +127,7 @@ img {
 
 .page-title {
   position: fixed;
-  top: 32px;
+  top: 50px;
   left: 0;
   right: 0;
   font-family: "Consolas";
@@ -224,7 +224,7 @@ img {
   border-top: none;
   border-left: none;
   padding: 10pt;
-  font-size: 25px;
+  font-size: 35px;
   font-family: "Calibri", sans-serif;
 }
 
