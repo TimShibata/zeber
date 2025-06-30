@@ -1,0 +1,241 @@
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  min-height: 100vh;
+  margin: 0;
+}
+
+.wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+.container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  max-height: 100vh;
+}
+
+.container img {
+  max-width: 50%;
+  height: auto;
+  max-height: 100vh;
+  padding-left: 20px;
+  padding-right: 20px;
+  object-fit: contain;
+}
+
+.container .text {
+  flex: 1;
+  padding-left: 20px;
+  padding-right: 20px;
+  max-width: 80ch;
+  font-family: "Consolas";
+  font-size: medium;
+}
+
+@media (max-width: 768px) {
+  .container {
+    max-width: 100%;
+    height: auto;
+    flex-direction: column;
+  }
+
+  .container .text {
+    margin-left: 0;
+    margin-top: 20px;
+    max-width: 100ch;
+    padding-left: 20px;
+    padding-right: 20px;
+    max-width: 80ch;
+    font-family: "Consolas";
+    font-size: medium;
+  }
+
+  .container img {
+    max-width: 100%;
+    height: auto;
+    padding-bottom: 20px;
+  }
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+
+.gallery {
+  display: block;
+}
+
+.gallery-item {
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.gallery img {
+  max-width: 100%;
+  height: auto;
+  display: inline-block;
+}
+
+.center {
+  margin: auto;
+}
+
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  font-family: "Consolas";
+  font-size: 1.5em;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #0051ff;
+  padding: 10px 10px;
+}
+
+.navbar a {
+  font-family: "Consolas";
+  color: white;
+  text-decoration: none;
+  padding: 10px 10px;
+}
+
+.navbar a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+.navbar .left {
+  flex: 1;
+}
+
+.navbar .right {
+  display: flex;
+  gap: 10px;
+}
+
+.page-title {
+  position: fixed;
+  top: 32px;
+  left: 0;
+  right: 0;
+  font-family: "Consolas";
+  font-size: 2em;
+  color: #333;
+  background-color: #ddd;
+  text-align: center;
+}
+
+.content-container {
+  font-family: "Consolas";
+  margin-top: 125px;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 100ch;
+  font-size: medium;
+}
+
+.h2-title {
+  font-size: 2em;
+  font-weight: normal;
+  color: #555;
+  margin-top: 30px;
+  margin-bottom: 10px;
+  text-align: left;
+}
+
+.h3-title {
+  font-size: 1.5em;
+  font-weight: normal;
+  color: #555;
+  margin-top: 20px;
+  margin-bottom: 10px;
+  text-align: left;
+}
+
+.h4-title {
+  font-size: 1.2em;
+  font-weight: normal;
+  color: #555;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  text-align: left;
+}
+
+.h5-title {
+  font-size: 1.2em;
+  font-weight: normal;
+  color: #555;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  text-align: left;
+}
+
+
+.main-text {
+  font-size: 1em;
+  font-weight: normal;
+  color: #666;
+  line-height: 1.6;
+  text-align: left;
+}
+
+.bullet-list {
+  list-style-type: disc;
+  margin-left: 20px;
+}
+
+.bullet-list .sub-bullet-list {
+  list-style-type: circle;
+  margin-left: 20px;
+}
+
+
+.menu-img-cell {
+  width: 30%;
+  vertical-align: middle;
+  text-align: center !important;
+  border: solid 1px;
+  padding: 0;
+}
+
+.menu-img-cell img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 100%;
+  height: auto;
+}
+
+.menu-description-cell {
+  width: 30%;
+  vertical-align: middle;
+  border-top: none;
+  border-left: none;
+  padding: 10pt;
+  font-size: 25px;
+  font-family: "Calibri", sans-serif;
+}
+
+.menu-cell {
+  width: 20%;
+  max-width: 3.5ch;
+  vertical-align: middle;
+  text-align: center;
+  font-size: 50px;
+  font-family: "Calibri", sans-serif;
+  border-top: none;
+  border-left: none;
+  padding: 2pt;
+}
