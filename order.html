@@ -222,6 +222,7 @@
             console.log('cookie ' + name + ' = ' + value);
             document.cookie = `${name}=${value}; path=/`;
         }
+        
         // Read the cookie value
         function getCookie(name) {
             const cookies = document.cookie.split('; ');
@@ -233,6 +234,7 @@
             }
             return null;
         }
+
         // On page load:
         window.onload = function () {
             const lastPersonID = getCookie('personID');
@@ -247,16 +249,19 @@
         };
         // Call the onload function to set the drop-down box values on page load
         window.onload();
+
         function increase(id) {
             var input = document.getElementById(id);
             input.value = parseInt(input.value) + 1;
         }
+
         function decrease(id) {
             var input = document.getElementById(id);
             if (input.value > 0) {
                 input.value = parseInt(input.value) - 1;
             }
         }
+
         function submit() {
 
             setCookie('personID', document.getElementById('personID').value);
@@ -276,7 +281,7 @@
 
             out_str += 'person=' + document.getElementById('personID').value;
 
-            var macroID = 'AKfycbxw_eW2VRCl4ZQY3CIBR-iJmJAste0Xx4LBk22mwuHnT9V1Qi_eRZiHV5IQehaODqnOpQ';
+            var macroID = 'AKfycby5rr8eZf8agiOZWgBNB4a2Wh81F4Bw2WqUWfNpAni7Er6_Xx-7VcP-rXpTmccKe793Cg';
             fetch('https://script.google.com/macros/s/' + macroID + '/exec' + out_str, { mode: 'no-cors' })
                 .then(response => response.text())
                 .then(data => {
