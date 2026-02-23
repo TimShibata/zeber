@@ -608,6 +608,44 @@ img {
 
 .dialog-btn-secondary:active { background: #ddd; }
 
+/* ── T-shirt size picker ──────────────────────────── */
+.size-option {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.size-option:last-child { border-bottom: none; }
+
+.size-option.soldout { opacity: 0.38; pointer-events: none; }
+
+.size-label {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.size-name {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #111;
+}
+
+.size-stock {
+  font-size: 0.78rem;
+  color: #777;
+}
+
+.size-remaining {
+  text-align: center;
+  font-family: "Consolas", monospace;
+  font-size: 0.9rem;
+  color: #0051ff;
+  margin: 12px 0 0;
+}
+
 .footer-total {
   font-family: "Consolas", monospace;
   font-size: 1.1rem;

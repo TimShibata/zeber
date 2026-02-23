@@ -36,7 +36,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>zeber</title>
     <link rel="icon" type="image/x-icon" href="favicon.ico">
-    <link rel="stylesheet" href="css/styles.css?v=8">
+    <link rel="stylesheet" href="css/styles.css?v=9">
     <script src="nav.js"></script>
 </head>
 
@@ -178,6 +178,20 @@
         </div>
     </div>
 
+    <!-- T-shirt size picker dialog -->
+    <div id="sizePickerBg" class="dialog-bg">
+        <div class="dialog-box">
+            <p class="dialog-title">&#128085; Choose shirt size(s)</p>
+            <p class="dialog-sub">Ordering <strong id="sizeOrderQty">0</strong> shirt(s) &mdash; allocate sizes below.</p>
+            <div id="sizeOptions"></div>
+            <p class="size-remaining">Still to allocate: <strong id="sizeRemaining">0</strong></p>
+            <div class="dialog-actions">
+                <button id="sizeConfirmBtn" class="dialog-btn dialog-btn-primary" onclick="confirmSizes()" disabled>Confirm</button>
+                <button class="dialog-btn dialog-btn-secondary" onclick="closeSizePicker()">Cancel</button>
+            </div>
+        </div>
+    </div>
+
     <div id="output"></div>
 
     <!-- Lightbox -->
@@ -229,6 +243,7 @@
             if (e.key === 'Escape') {
                 closeLightbox();
                 closeNameDialog(); // will no-op if no name saved
+                closeSizePicker();
             }
             if (e.key === 'Enter' && document.getElementById('nameDialogBg').classList.contains('active')) {
                 confirmName();
@@ -250,11 +265,8 @@
 
         window.onload = function () {
             const saved = getCookie('personID');
-            if (saved) {
-                setPersonName(saved);
-            } else {
-                setTimeout(openNameDialog, 400);
-            }
+            if (saved) setPersonName(saved);
+            // Name is no longer auto-prompted — user sets it at submit time
         };
         window.onload();
 
@@ -285,7 +297,7 @@
             if (!name) {
                 var input = document.getElementById('nameInput');
                 input.classList.remove('shake');
-                void input.offsetWidth; // reflow to restart animation
+                void input.offsetWidth;
                 input.classList.add('shake');
                 input.focus();
                 return;
@@ -293,6 +305,10 @@
             setPersonName(name);
             setCookie('personID', name);
             document.getElementById('nameDialogBg').classList.remove('active');
+            if (_submitPending) {
+                _submitPending = false;
+                proceedWithOrder();
+            }
         }
 
         function nameDialogBgClick(e) {
@@ -325,14 +341,111 @@
             }
         }
 
+        // ── Submit flow ──────────────────────────────────────────────────
+        var _submitPending = false;
+        var _sizeSelections = { S: 0, M: 0, L: 0, XL: 0 };
+        var _inventory      = {};
+        var _tshirtOrderQty = 0;
+        var SUPABASE_URL      = 'https://dpsmpuigeadjpjodbvcq.supabase.co';
+        var SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRwc21wdWlnZWFkanBqb2RidmNxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzE3OTI0NTksImV4cCI6MjA4NzM2ODQ1OX0.aki7zue7xfSfldOkua6KBNM3fZtr0xc4p7qmHgVsdDc';
+
         function submitOrder() {
             if (!document.getElementById('personID').value.trim()) {
+                _submitPending = true;
                 openNameDialog();
                 return;
             }
+            proceedWithOrder();
+        }
+
+        function proceedWithOrder() {
+            var tshirtQty = parseInt(document.getElementById('num7').value) || 0;
+            if (tshirtQty > 0) {
+                openSizePicker(tshirtQty);
+            } else {
+                doSubmit(null);
+            }
+        }
+
+        // ── Size picker ──────────────────────────────────────────────────
+        async function openSizePicker(qty) {
+            _tshirtOrderQty = qty;
+            _sizeSelections = { S: 0, M: 0, L: 0, XL: 0 };
+            document.getElementById('sizeOrderQty').textContent = qty;
+
+            try {
+                var resp = await fetch(
+                    SUPABASE_URL + '/rest/v1/tshirt_inventory?select=size,quantity_available&order=id',
+                    { headers: { 'apikey': SUPABASE_ANON_KEY, 'Authorization': 'Bearer ' + SUPABASE_ANON_KEY } }
+                );
+                var rows = await resp.json();
+                _inventory = {};
+                for (var row of rows) _inventory[row.size] = row.quantity_available;
+            } catch (e) {
+                _inventory = { S: 99, M: 99, L: 99, XL: 99 };
+            }
+
+            var container = document.getElementById('sizeOptions');
+            container.innerHTML = '';
+            ['S', 'M', 'L', 'XL'].forEach(function(size) {
+                var avail  = _inventory[size] || 0;
+                var soldout = avail === 0;
+                var div = document.createElement('div');
+                div.className = 'size-option' + (soldout ? ' soldout' : '');
+                div.id = 'sizeOpt_' + size;
+                div.innerHTML =
+                    '<div class="size-label">'
+                        + '<span class="size-name">' + size + '</span>'
+                        + '<span class="size-stock">' + (soldout ? 'Sold out' : avail + ' available') + '</span>'
+                    + '</div>'
+                    + '<div class="item-stepper">'
+                        + '<button class="stepper-btn" onclick="adjustSize(\'' + size + '\', -1)"' + (soldout ? ' disabled' : '') + '>&#x2212;</button>'
+                        + '<span class="stepper-qty" id="sizeQty_' + size + '">0</span>'
+                        + '<button class="stepper-btn" onclick="adjustSize(\'' + size + '\', 1)"' + (soldout ? ' disabled' : '') + '>+</button>'
+                    + '</div>';
+                container.appendChild(div);
+            });
+
+            updateSizeRemaining();
+            document.getElementById('sizePickerBg').classList.add('active');
+        }
+
+        function adjustSize(size, delta) {
+            var avail   = _inventory[size] || 0;
+            var current = _sizeSelections[size] || 0;
+            var total   = Object.values(_sizeSelections).reduce(function(a,b){return a+b;}, 0);
+            var newVal  = current + delta;
+            if (newVal < 0) return;
+            if (newVal > avail) return;
+            if (delta > 0 && total >= _tshirtOrderQty) return;
+            _sizeSelections[size] = newVal;
+            document.getElementById('sizeQty_' + size).textContent = newVal;
+            updateSizeRemaining();
+        }
+
+        function updateSizeRemaining() {
+            var total = Object.values(_sizeSelections).reduce(function(a,b){return a+b;}, 0);
+            var rem = _tshirtOrderQty - total;
+            document.getElementById('sizeRemaining').textContent = rem;
+            document.getElementById('sizeConfirmBtn').disabled = (rem !== 0);
+        }
+
+        function closeSizePicker() {
+            document.getElementById('sizePickerBg').classList.remove('active');
+        }
+
+        function confirmSizes() {
+            var total = Object.values(_sizeSelections).reduce(function(a,b){return a+b;}, 0);
+            if (total !== _tshirtOrderQty) return;
+            closeSizePicker();
+            doSubmit(_sizeSelections);
+        }
+
+        // ── Actual network submit ────────────────────────────────────────
+        function doSubmit(sizes) {
             setCookie('personID', document.getElementById('personID').value);
             document.getElementById('output').innerText = '';
-            document.getElementById('submitBtn').textContent = 'Submitting…';
+            document.getElementById('submitBtn').textContent = 'Submitting\u2026';
             document.getElementById('submitBtn').disabled = true;
 
             var inputs = document.querySelectorAll('#menuItems input[type="hidden"]');
@@ -341,6 +454,12 @@
                 out_str += 'item' + (i + 1) + '=' + inputs[i].value + '&';
             }
             out_str += 'person=' + encodeURIComponent(document.getElementById('personID').value);
+            if (sizes) {
+                out_str += '&tshirt_s='  + (sizes.S  || 0);
+                out_str += '&tshirt_m='  + (sizes.M  || 0);
+                out_str += '&tshirt_l='  + (sizes.L  || 0);
+                out_str += '&tshirt_xl=' + (sizes.XL || 0);
+            }
 
             var supabaseFunctionURL = 'https://dpsmpuigeadjpjodbvcq.supabase.co/functions/v1/submit-order';
             fetch(supabaseFunctionURL + out_str)
