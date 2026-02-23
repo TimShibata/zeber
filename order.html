@@ -1,4 +1,5 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 
 <script>
     function includeHTML() {
@@ -31,266 +32,243 @@
 </script>
 
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>zeber</title>
     <link rel="icon" type="image/x-icon" href="favicon.ico">
-    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/styles.css?v=2">
 </head>
 
-<body lang=EN-US style='word-wrap:break-word'>
+<body>
     <div nav-bar="nav_bar.html"></div>
 
-    <h1 class="page-title">
-        Hours of operation 4:30 - 7:00
-    </h1>
+    <h1 class="page-title">Hours of operation 4:30 – 7:00</h1>
 
     <div class="content-container">
-        <table id="myTable" border=1 cellspacing=10 cellpadding=10 style='border-collapse:collapse;border:none'>
-            <tr>
-                <td class="menu-img-cell">
-                    <img width="186" height="279" id="Picture 1" src="order_files/Miller-Lite.png"
-                        alt="A can of beer with a logo">
-                </td>
-                <td class="menu-description-cell">
-                    Miller Lite<br>10 &#162
-                </td>
-                <td class="menu-cell">
-                    <input type="number" value="0" min="0" id="num1" style="font-size: 75px; max-width: 3.5ch;">
-                </td>
-                <td class="menu-cell">
-                    <button onclick="increase('num1')" style="font-size: 75px; width: 2ch;">+</button><br>
-                    <button onclick="decrease('num1')" style="font-size: 75px; width: 2ch;">-</button>
-                </td>
-            </tr>
-            <tr>
-                <td class="menu-img-cell">
-                    <img width=136 height=230 id="Picture 2" src="order_files/generic-beer.jpg"
-                        alt="A can of beer with a blue label and a yellow sun and boats">
-                </td>
-                <td class="menu-description-cell">
-                    Generic Beer<br>10 &#162
-                </td>
-                <td class="menu-cell">
-                    <input type="number" value="0" min="0" id="num2" style="font-size: 75px; max-width: 3.5ch;">
-                </td>
-                <td class="menu-cell">
-                    <button onclick="increase('num2')" style="font-size: 75px; width: 2ch;">+</button><br>
-                    <button onclick="decrease('num2')" style="font-size: 75px; width: 2ch;">-</button>
-                </td>
-            </tr>
-            <tr>
-                <td class="menu-img-cell">
-                    <img width=221 height=173 id="Picture 3" src="order_files/beer_running.jpeg" alt="beer running">
-                </td>
-                <td class="menu-description-cell">
-                    Any beer delivery<br>10 &#162
-                </td>
-                <td class="menu-cell">
-                    <input type="number" value="0" min="0" id="num3" style="font-size: 75px; max-width: 3.5ch;">
-                </td>
-                <td class="menu-cell">
-                    <button onclick="increase('num3')" style="font-size: 75px; width: 2ch;">+</button><br>
-                    <button onclick="decrease('num3')" style="font-size: 75px; width: 2ch;">-</button>
-                </td>
-            </tr>
-            <tr>
-                <td class="menu-img-cell">
-                    <img width=199 height=199 id="Picture 4" src="order_files/chips_and_guacamole.jpg" alt="chips">
-                </td>
-                <td class="menu-description-cell">
-                    Chips<br>10 &#162
-                </td>
-                <td class="menu-cell">
-                    <input type="number" value="0" min="0" id="num4" style="font-size: 75px; max-width: 3.5ch;">
-                </td>
-                <td class="menu-cell">
-                    <button onclick="increase('num4')" style="font-size: 75px; width: 2ch;">+</button><br>
-                    <button onclick="decrease('num4')" style="font-size: 75px; width: 2ch;">-</button>
-                </td>
-            </tr>
-            <tr>
-                <td class="menu-img-cell">
-                    <img width=281 height=256 id="Picture 5" src="order_files/chair.jpg"
-                        alt="A green folding chair with a cup holder">
-                </td>
-                <td class="menu-description-cell">
-                    Chair moving services<br>5 &#162
-                </td>
-                <td class="menu-cell">
-                    <input type="number" value="0" min="0" id="num5" style="font-size: 75px; max-width: 3.5ch;">
-                </td>
-                <td class="menu-cell">
-                    <button onclick="increase('num5')" style="font-size: 75px; width: 2ch;">+</button><br>
-                    <button onclick="decrease('num5')" style="font-size: 75px; width: 2ch;">-</button>
-                </td>
-            </tr>
-            <tr>
-                <td class="menu-img-cell">
-                    <img width=254 height=167 id="Picture 6" src="order_files/hammock.jpeg" alt="hammock">
-                </td>
-                <td class="menu-description-cell">
-                    Hammock rental<br>15 &#162 per hour
-                </td>
-                <td class="menu-cell">
-                    <input type="number" value="0" min="0" id="num6" style="font-size: 75px; max-width: 3.5ch;">
-                </td>
-                <td class="menu-cell">
-                    <button onclick="increase('num6')" style="font-size: 75px; width: 2ch;">+</button><br>
-                    <button onclick="decrease('num6')" style="font-size: 75px; width: 2ch;">-</button>
-                </td>
-            </tr>
-            <tr>
-                <td class="menu-img-cell">
-                    <img width=254 height=260 id="Picture 7" src="order_files/redball_poster.jpg"
-                        alt="redball entertainment">
-                </td>
-                <td class="menu-description-cell">
-                    Redball tickets<br>10 &#162
-                </td>
-                <td class="menu-cell">
-                    <input type="number" value="0" min="0" id="num7" style="font-size: 75px; max-width: 3.5ch;">
-                </td>
-                <td class="menu-cell">
-                    <button onclick="increase('num7')" style="font-size: 75px; width: 2ch;">+</button><br>
-                    <button onclick="decrease('num7')" style="font-size: 75px; width: 2ch;">-</button>
-                </td>
-            </tr>
-            <tr>
-                <td class="menu-img-cell">
-                    <img width=254 height=167 id="Picture 8"
-                        src="order_files/trophy-on-field-under-stadium-lights-at-night-photo.jpg"
-                        alt="redball tournament trophy">
-                </td>
-                <td class="menu-description-cell">
-                    Redball tournament registration<br>10 &#162
-                </td>
-                <td class="menu-cell">
-                    <input type="number" value="0" min="0" id="num8" style="font-size: 75px; max-width: 3.5ch;">
-                </td>
-                <td class="menu-cell">
-                    <button onclick="increase('num8')" style="font-size: 75px; width: 2ch;">+</button><br>
-                    <button onclick="decrease('num8')" style="font-size: 75px; width: 2ch;">-</button>
-                </td>
-            </tr>
-        </table>
-        <br><br>
-        <table style="font-family: Consolas; font-size: 60px;">
-            <tr>
-                <td>
-                    <table style="font-family: Consolas; font-size: 60px;">
-                        <tr>
+        <div id="menuItems">
+            <div class="menu-item" data-price="10">
+                <img class="item-img" src="zeber-bottle-cropped-01.png" alt="Zeber beer bottle">
+                <div class="item-info">
+                    <span class="item-name">Beer Delivery</span>
+                    <span class="item-price">10&#162;</span>
+                </div>
+                <div class="item-stepper">
+                    <button class="stepper-btn" onclick="adjust('num1', -1)">&#x2212;</button>
+                    <span class="stepper-qty" id="qty_num1">0</span>
+                    <input type="hidden" id="num1" value="0">
+                    <button class="stepper-btn" onclick="adjust('num1', 1)">+</button>
+                </div>
+            </div>
 
-                            <td>
-                                <label for="personID">Person:</label>
-                                <select id="personID" name="personID" style="font-size: 72px;">
-                                    <option value="Grandpa">Grandpa</option>
-                                    <option value="Grandma">Grandma</option>
-                                    <option value="Jess">Jess</option>
-                                    <option value="Mario">Mario</option>
-                                    <option value="Dad">Dad</option>
-                                    <option value="Mom">Mom</option>
-                                    <option value="James">James</option>
-                                    <option value="Jaclyn">Jaclyn</option>
-                                    <option value="Joel">Joel</option>
-                                    <option value="Jenn">Jenn</option>
-                                </select>
+            <div class="menu-item" data-price="10">
+                <img class="item-img" src="order_files/chips_and_guacamole.jpg" alt="chips">
+                <div class="item-info">
+                    <span class="item-name">Chips</span>
+                    <span class="item-price">10&#162;</span>
+                </div>
+                <div class="item-stepper">
+                    <button class="stepper-btn" onclick="adjust('num2', -1)">&#x2212;</button>
+                    <span class="stepper-qty" id="qty_num2">0</span>
+                    <input type="hidden" id="num2" value="0">
+                    <button class="stepper-btn" onclick="adjust('num2', 1)">+</button>
+                </div>
+            </div>
 
-                            </td>
-                        </tr>
+            <div class="menu-item" data-price="5">
+                <img class="item-img" src="order_files/chair.jpg" alt="folding chair">
+                <div class="item-info">
+                    <span class="item-name">Chair Moving Services</span>
+                    <span class="item-price">5&#162;</span>
+                </div>
+                <div class="item-stepper">
+                    <button class="stepper-btn" onclick="adjust('num3', -1)">&#x2212;</button>
+                    <span class="stepper-qty" id="qty_num3">0</span>
+                    <input type="hidden" id="num3" value="0">
+                    <button class="stepper-btn" onclick="adjust('num3', 1)">+</button>
+                </div>
+            </div>
 
-                    </table>
-                <td>
-                    <button id="submitBtn" type="submit" onclick="submit()" style="font-size: 60px;">
-                        Submit<br>Order
-                    </button>
-                </td>
-            </tr>
-        </table>
+            <div class="menu-item" data-price="15">
+                <img class="item-img" src="order_files/hammock.jpeg" alt="hammock">
+                <div class="item-info">
+                    <span class="item-name">Hammock Rental</span>
+                    <span class="item-price">15&#162; / hr</span>
+                </div>
+                <div class="item-stepper">
+                    <button class="stepper-btn" onclick="adjust('num4', -1)">&#x2212;</button>
+                    <span class="stepper-qty" id="qty_num4">0</span>
+                    <input type="hidden" id="num4" value="0">
+                    <button class="stepper-btn" onclick="adjust('num4', 1)">+</button>
+                </div>
+            </div>
+
+            <div class="menu-item" data-price="10">
+                <img class="item-img" src="order_files/redball_poster.jpg" alt="redball entertainment">
+                <div class="item-info">
+                    <span class="item-name">Redball Tickets</span>
+                    <span class="item-price">10&#162;</span>
+                </div>
+                <div class="item-stepper">
+                    <button class="stepper-btn" onclick="adjust('num5', -1)">&#x2212;</button>
+                    <span class="stepper-qty" id="qty_num5">0</span>
+                    <input type="hidden" id="num5" value="0">
+                    <button class="stepper-btn" onclick="adjust('num5', 1)">+</button>
+                </div>
+            </div>
+
+            <div class="menu-item" data-price="10">
+                <img class="item-img" src="order_files/trophy-on-field-under-stadium-lights-at-night-photo.jpg" alt="redball tournament trophy">
+                <div class="item-info">
+                    <span class="item-name">Redball Tournament</span>
+                    <span class="item-price">10&#162;</span>
+                </div>
+                <div class="item-stepper">
+                    <button class="stepper-btn" onclick="adjust('num6', -1)">&#x2212;</button>
+                    <span class="stepper-qty" id="qty_num6">0</span>
+                    <input type="hidden" id="num6" value="0">
+                    <button class="stepper-btn" onclick="adjust('num6', 1)">+</button>
+                </div>
+            </div>
+
+            <div class="menu-item" data-price="1500">
+                <img class="item-img" src="order_files/zeber-shirt-model.png" alt="Zeber t-shirt">
+                <div class="item-info">
+                    <span class="item-name">T-Shirt</span>
+                    <span class="item-price">$15.00</span>
+                </div>
+                <div class="item-stepper">
+                    <button class="stepper-btn" onclick="adjust('num7', -1)">&#x2212;</button>
+                    <span class="stepper-qty" id="qty_num7">0</span>
+                    <input type="hidden" id="num7" value="0">
+                    <button class="stepper-btn" onclick="adjust('num7', 1)">+</button>
+                </div>
+            </div>
+            <div class="menu-item" data-price="15">
+                <img class="item-img" src="order_files/cowbell.png" alt="Cowbell">
+                <div class="item-info">
+                    <span class="item-name">Cowbell Rental</span>
+                    <span class="item-price">15&#162; / hr</span>
+                </div>
+                <div class="item-stepper">
+                    <button class="stepper-btn" onclick="adjust('num8', -1)">&#x2212;</button>
+                    <span class="stepper-qty" id="qty_num8">0</span>
+                    <input type="hidden" id="num8" value="0">
+                    <button class="stepper-btn" onclick="adjust('num8', 1)">+</button>
+                </div>
+            </div>        </div>
     </div>
 
-    <p style="font-size: 120px; font-family: Consolas; text-align: center;">
-        <br> <br>
-    </p>
+    <!-- Sticky order footer -->
+    <div class="order-footer">
+        <select id="personID" class="person-select">
+            <option value="Grandpa">Grandpa</option>
+            <option value="Grandma">Grandma</option>
+            <option value="Jess">Jess</option>
+            <option value="Mario">Mario</option>
+            <option value="Dad">Dad</option>
+            <option value="Mom">Mom</option>
+            <option value="James">James</option>
+            <option value="Jaclyn">Jaclyn</option>
+            <option value="Joel">Joel</option>
+            <option value="Jenn">Jenn</option>
+            <option value="Miss Maureen">Miss Maureen</option>
+            <option value="Mr. Kevin">Mr. Kevin</option>
+            <option value="Miss Andread">Miss Andread</option>
+            <option value="Mr. Brendan">Mr. Brendan</option>
+            <option value="Miss Hanna">Miss Hanna</option>
+            <option value="Mr Tim">Mr Tim</option>
+            <option value="Miss Ren">Miss Ren</option>
+            <option value="Mr. Mark C.">Mr. Mark C.</option>
+            <option value="Miss Erin">Miss Erin</option>
+            <option value="Mr. Mark A.">Mr. Mark A.</option>
+            <option value="Miss Betsy">Miss Betsy</option>
+            <option value="Mr. Bryan">Mr. Bryan</option>
+            <option value="Miss Arwen">Miss Arwen</option>
+            <option value="Miss Jenn">Miss Jenn</option>
+        </select>
+        <span class="footer-total" id="totalDisplay">0&#162;</span>
+        <button id="submitBtn" class="submit-btn" onclick="submitOrder()">Submit Order</button>
+    </div>
 
-
-    <div id="output"> </div>
+    <div id="output"></div>
     <script>
-
         includeHTML();
 
-        // Set the cookie with the selected values
         function setCookie(name, value) {
-            console.log('cookie ' + name + ' = ' + value);
-            document.cookie = `${name}=${value}; path=/`;
+            document.cookie = `${name}=${encodeURIComponent(value)}; path=/`;
         }
-        
-        // Read the cookie value
+
         function getCookie(name) {
             const cookies = document.cookie.split('; ');
             for (const cookie of cookies) {
                 const [cookieName, cookieValue] = cookie.split('=');
-                if (cookieName === name) {
-                    return cookieValue;
-                }
+                if (cookieName === name) return decodeURIComponent(cookieValue || '');
             }
             return null;
         }
 
-        // On page load:
         window.onload = function () {
             const lastPersonID = getCookie('personID');
-
-            // Populate the drop-down boxes with the last selected values
-            const personSelect = document.getElementById('personID');
-
-            if (lastPersonID) {
-                personSelect.value = lastPersonID;
-            }
-
+            if (lastPersonID) document.getElementById('personID').value = lastPersonID;
         };
-        // Call the onload function to set the drop-down box values on page load
         window.onload();
 
-        function increase(id) {
+        function adjust(id, delta) {
             var input = document.getElementById(id);
-            input.value = parseInt(input.value) + 1;
+            var newVal = Math.max(0, parseInt(input.value) + delta);
+            input.value = newVal;
+            document.getElementById('qty_' + id).textContent = newVal;
+            input.closest('.menu-item').classList.toggle('selected', newVal > 0);
+            updateTotal();
         }
 
-        function decrease(id) {
-            var input = document.getElementById(id);
-            if (input.value > 0) {
-                input.value = parseInt(input.value) - 1;
+        function updateTotal() {
+            var total = 0;
+            document.querySelectorAll('#menuItems .menu-item').forEach(function (item) {
+                var qty = parseInt(item.querySelector('input[type="hidden"]').value);
+                var price = parseInt(item.dataset.price);
+                total += qty * price;
+            });
+            var display = document.getElementById('totalDisplay');
+            if (total === 0) {
+                display.textContent = '0\u00A2';
+            } else if (total < 100) {
+                display.textContent = total + '\u00A2';
+            } else {
+                display.textContent = '$' + (total / 100).toFixed(2);
             }
         }
 
-        function submit() {
-
+        function submitOrder() {
             setCookie('personID', document.getElementById('personID').value);
-
-            document.getElementById('output').innerText = "Submitting order...";
-            document.getElementById('submitBtn').innerHTML = "Submitting...";
+            document.getElementById('output').innerText = '';
+            document.getElementById('submitBtn').textContent = 'Submitting…';
             document.getElementById('submitBtn').disabled = true;
 
-            var table = document.getElementById('myTable');
-            var inputs = table.getElementsByTagName('input')
-            var items = [];
-            var out_str = "?";
+            var inputs = document.querySelectorAll('#menuItems input[type="hidden"]');
+            var out_str = '?';
             for (var i = 0; i < inputs.length; i++) {
-                items.push('item ' + (i + 1) + ': ' + inputs[i].value);
-                out_str += 'item' + [i + 1] + "=" + inputs[i].value + "&";
+                out_str += 'item' + (i + 1) + '=' + inputs[i].value + '&';
             }
+            out_str += 'person=' + encodeURIComponent(document.getElementById('personID').value);
 
-            out_str += 'person=' + document.getElementById('personID').value;
-
-            var macroID = 'AKfycby5rr8eZf8agiOZWgBNB4a2Wh81F4Bw2WqUWfNpAni7Er6_Xx-7VcP-rXpTmccKe793Cg';
-            fetch('https://script.google.com/macros/s/' + macroID + '/exec' + out_str, { mode: 'no-cors' })
-                .then(response => response.text())
+            var supabaseFunctionURL = 'https://dpsmpuigeadjpjodbvcq.supabase.co/functions/v1/submit-order';
+            fetch(supabaseFunctionURL + out_str)
+                .then(response => response.json())
                 .then(data => {
-                    console.log(data); // Write response data to the console
-                    document.getElementById('output').innerText = data;
-                    window.location.href = "checkout.html";
+                    if (data.success) {
+                        window.location.href = 'checkout.html';
+                    } else {
+                        document.getElementById('output').innerText = 'Error: ' + data.error;
+                        document.getElementById('submitBtn').textContent = 'Submit Order';
+                        document.getElementById('submitBtn').disabled = false;
+                    }
                 })
                 .catch(error => {
                     console.error('Error:', error);
+                    document.getElementById('output').innerText = 'Network error. Please try again.';
+                    document.getElementById('submitBtn').textContent = 'Submit Order';
+                    document.getElementById('submitBtn').disabled = false;
                 });
         }
     </script>
