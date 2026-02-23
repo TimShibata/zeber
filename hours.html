@@ -1,29 +1,25 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 
 <script>
     function includeHTML() {
         var z, i, elmnt, file, xhttp;
-        /*loop through a collection of all HTML elements:*/
         z = document.getElementsByTagName("*");
         for (i = 0; i < z.length; i++) {
             elmnt = z[i];
-            /*search for elements with a certain attribute:*/
             file = elmnt.getAttribute("nav-bar");
             if (file) {
-                /*make an HTTP request using the attribute value as the file name:*/
                 xhttp = new XMLHttpRequest();
                 xhttp.onreadystatechange = function () {
                     if (this.readyState == 4) {
                         if (this.status == 200) { elmnt.innerHTML = this.responseText; }
                         if (this.status == 404) { elmnt.innerHTML = "Page not found."; }
-                        /*remove the attribute, and call this function once more:*/
                         elmnt.removeAttribute("nav-bar");
                         includeHTML();
                     }
                 }
                 xhttp.open("GET", file, true);
                 xhttp.send();
-                /*exit the function:*/
                 return;
             }
         }
@@ -31,8 +27,9 @@
 </script>
 
 <head>
-    <meta content="text/html; charset=UTF-8" http-equiv="content-type">
-    <title>zeber</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>zeber – Hours</title>
     <link rel="icon" type="image/x-icon" href="favicon.ico">
     <link rel="stylesheet" href="css/styles.css?v=3">
     <script src="nav.js"></script>
@@ -41,19 +38,13 @@
 <body>
     <div nav-bar="nav_bar.html"></div>
 
-
-    <h1 class="page-title">
-        Tim Shibata
-    </h1>
+    <h1 class="page-title">Hours of Operation</h1>
 
     <div class="content-container">
-        <p class="main-text">
-            Our owner, the brilliant Tim Shibata has been in the beer delivery business for
-            almost half his life. His favorite kind of beer is Sun beer. He would like to thank Mr. Cousino because
-            "he is a good customer and buys a lot of stuff." In his free time he builds LEGOs. His favorite
-            color is gray.
-        </p>
-        <img alt="The Founder" src="tim_profile_files/image1.jpg">
+        <div style="text-align:center; padding-top: 20px; font-size: 2em;">
+            4:30 &ndash; 7:00
+        </div>
+    </div>
 </body>
 <script>
     includeHTML();

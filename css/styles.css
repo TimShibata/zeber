@@ -95,34 +95,58 @@ img {
   top: 0;
   left: 0;
   right: 0;
-  font-family: "Consolas";
-  font-size: 50px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   background-color: #0051ff;
-  padding: 10px 10px;
+  padding: 10px 16px;
+  z-index: 1000;
 }
 
-.navbar a {
+.navbar-logo {
+  height: 40px;
+  width: auto;
+  max-width: none;
+  display: block;
+}
+
+.hamburger-btn {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 28px;
+  cursor: pointer;
+  padding: 4px 8px;
+  line-height: 1;
+}
+
+.nav-menu {
+  display: none;
+  position: fixed;
+  top: 60px;
+  left: 0;
+  right: 0;
+  background-color: #0051ff;
+  z-index: 999;
+  flex-direction: column;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+}
+
+.nav-menu.open {
+  display: flex;
+}
+
+.nav-menu a {
   font-family: "Consolas";
   color: white;
   text-decoration: none;
-  padding: 10px 10px;
+  padding: 14px 24px;
+  font-size: 20px;
+  border-top: 1px solid rgba(255,255,255,0.2);
 }
 
-.navbar a:hover {
-  background-color: #ddd;
-  color: black;
-}
-
-.navbar .left {
-  flex: 1;
-}
-
-.navbar .right {
-  display: flex;
-  gap: 10px;
+.nav-menu a:hover {
+  background-color: #0040cc;
 }
 
 .page-title {
@@ -130,6 +154,7 @@ img {
   top: 60px;
   left: 0;
   right: 0;
+  margin: 0;
   font-family: "Consolas";
   font-size: 2em;
   color: #333;
