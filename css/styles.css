@@ -479,6 +479,7 @@ img {
   border-top: 2px solid #0051ff;
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 10px;
   padding: 10px 14px;
   z-index: 200;
@@ -496,6 +497,116 @@ img {
   min-width: 0;
   color: #1a1a1a;
 }
+
+.person-btn {
+  font-family: "Consolas", monospace;
+  font-size: 0.92rem;
+  padding: 8px 10px;
+  border: 1.5px solid #0051ff;
+  border-radius: 8px;
+  background: #f0f4ff;
+  flex: none;
+  color: #0051ff;
+  cursor: pointer;
+  white-space: nowrap;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.person-btn:active { background: #dce6ff; }
+
+/* ── Name dialog ──────────────────────────────────── */
+.dialog-bg {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  z-index: 4000;
+  align-items: center;
+  justify-content: center;
+}
+
+.dialog-bg.active { display: flex; }
+
+.dialog-box {
+  background: #fff;
+  border-radius: 16px;
+  padding: 28px 24px 20px;
+  width: min(88vw, 360px);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+  font-family: "Consolas", monospace;
+}
+
+.dialog-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin: 0 0 4px;
+  color: #111;
+}
+
+.dialog-sub {
+  font-size: 0.88rem;
+  color: #666;
+  margin: 0 0 16px;
+}
+
+.dialog-input {
+  width: 100%;
+  font-family: "Consolas", monospace;
+  font-size: 1.05rem;
+  padding: 10px 12px;
+  border: 1.5px solid #ccc;
+  border-radius: 8px;
+  box-sizing: border-box;
+  outline: none;
+  color: #111;
+  margin-bottom: 16px;
+}
+
+.dialog-input:focus { border-color: #0051ff; }
+
+@keyframes shake {
+  0%   { transform: translateX(0); }
+  20%  { transform: translateX(-6px); }
+  40%  { transform: translateX(6px); }
+  60%  { transform: translateX(-4px); }
+  80%  { transform: translateX(4px); }
+  100% { transform: translateX(0); }
+}
+
+.dialog-input.shake {
+  border-color: #e53935;
+  animation: shake 0.35s ease;
+}
+
+.dialog-actions {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+}
+
+.dialog-btn {
+  font-family: "Consolas", monospace;
+  font-size: 0.95rem;
+  font-weight: 600;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.dialog-btn-primary {
+  background: #0051ff;
+  color: #fff;
+}
+
+.dialog-btn-primary:active { background: #0040cc; }
+
+.dialog-btn-secondary {
+  background: #eee;
+  color: #444;
+}
+
+.dialog-btn-secondary:active { background: #ddd; }
 
 .footer-total {
   font-family: "Consolas", monospace;

@@ -36,7 +36,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>zeber</title>
     <link rel="icon" type="image/x-icon" href="favicon.ico">
-    <link rel="stylesheet" href="css/styles.css?v=5">
+    <link rel="stylesheet" href="css/styles.css?v=8">
     <script src="nav.js"></script>
 </head>
 
@@ -159,34 +159,23 @@
 
     <!-- Sticky order footer -->
     <div class="order-footer">
-        <select id="personID" class="person-select">
-            <option value="Grandpa">Grandpa</option>
-            <option value="Grandma">Grandma</option>
-            <option value="Jess">Jess</option>
-            <option value="Mario">Mario</option>
-            <option value="Dad">Dad</option>
-            <option value="Mom">Mom</option>
-            <option value="James">James</option>
-            <option value="Jaclyn">Jaclyn</option>
-            <option value="Joel">Joel</option>
-            <option value="Jenn">Jenn</option>
-            <option value="Miss Maureen">Miss Maureen</option>
-            <option value="Mr. Kevin">Mr. Kevin</option>
-            <option value="Miss Andread">Miss Andread</option>
-            <option value="Mr. Brendan">Mr. Brendan</option>
-            <option value="Miss Hanna">Miss Hanna</option>
-            <option value="Mr Tim">Mr Tim</option>
-            <option value="Miss Ren">Miss Ren</option>
-            <option value="Mr. Mark C.">Mr. Mark C.</option>
-            <option value="Miss Erin">Miss Erin</option>
-            <option value="Mr. Mark A.">Mr. Mark A.</option>
-            <option value="Miss Betsy">Miss Betsy</option>
-            <option value="Mr. Bryan">Mr. Bryan</option>
-            <option value="Miss Arwen">Miss Arwen</option>
-            <option value="Miss Jenn">Miss Jenn</option>
-        </select>
+        <button id="personBtn" class="person-btn" onclick="openNameDialog()">&#128100; <span id="personDisplay">Tap to set name</span></button>
+        <input type="hidden" id="personID" value="">
         <span class="footer-total" id="totalDisplay">0&#162;</span>
         <button id="submitBtn" class="submit-btn" onclick="submitOrder()">Submit Order</button>
+    </div>
+
+    <!-- Name dialog -->
+    <div id="nameDialogBg" class="dialog-bg" onclick="nameDialogBgClick(event)">
+        <div class="dialog-box" id="nameDialogBox">
+            <p class="dialog-title">&#128075; What&#8217;s your name?</p>
+            <p class="dialog-sub">We&#8217;ll remember you for next time.</p>
+            <input id="nameInput" class="dialog-input" type="text" placeholder="Enter your name" autocomplete="off" autocorrect="off" spellcheck="false">
+            <div class="dialog-actions">
+                <button class="dialog-btn dialog-btn-primary" onclick="confirmName()">Save</button>
+                <button class="dialog-btn dialog-btn-secondary" id="cancelNameBtn" onclick="closeNameDialog()">Cancel</button>
+            </div>
+        </div>
     </div>
 
     <div id="output"></div>
@@ -237,7 +226,13 @@
         }
 
         document.addEventListener('keydown', function (e) {
-            if (e.key === 'Escape') closeLightbox();
+            if (e.key === 'Escape') {
+                closeLightbox();
+                closeNameDialog(); // will no-op if no name saved
+            }
+            if (e.key === 'Enter' && document.getElementById('nameDialogBg').classList.contains('active')) {
+                confirmName();
+            }
         });
 
         function setCookie(name, value) {
@@ -254,10 +249,55 @@
         }
 
         window.onload = function () {
-            const lastPersonID = getCookie('personID');
-            if (lastPersonID) document.getElementById('personID').value = lastPersonID;
+            const saved = getCookie('personID');
+            if (saved) {
+                setPersonName(saved);
+            } else {
+                setTimeout(openNameDialog, 400);
+            }
         };
         window.onload();
+
+        function setPersonName(name) {
+            document.getElementById('personID').value = name;
+            document.getElementById('personDisplay').textContent = name;
+        }
+
+        function openNameDialog() {
+            var saved = document.getElementById('personID').value;
+            document.getElementById('nameInput').value = saved || '';
+            document.getElementById('nameInput').classList.remove('shake');
+            document.getElementById('cancelNameBtn').style.display = saved ? '' : 'none';
+            document.getElementById('nameDialogBg').classList.add('active');
+            setTimeout(function () {
+                document.getElementById('nameInput').focus();
+            }, 50);
+        }
+
+        function closeNameDialog() {
+            // Only allow closing if a name is already saved
+            if (!document.getElementById('personID').value.trim()) return;
+            document.getElementById('nameDialogBg').classList.remove('active');
+        }
+
+        function confirmName() {
+            var name = document.getElementById('nameInput').value.trim();
+            if (!name) {
+                var input = document.getElementById('nameInput');
+                input.classList.remove('shake');
+                void input.offsetWidth; // reflow to restart animation
+                input.classList.add('shake');
+                input.focus();
+                return;
+            }
+            setPersonName(name);
+            setCookie('personID', name);
+            document.getElementById('nameDialogBg').classList.remove('active');
+        }
+
+        function nameDialogBgClick(e) {
+            if (e.target.id === 'nameDialogBg') closeNameDialog();
+        }
 
         function adjust(id, delta) {
             var input = document.getElementById(id);
@@ -286,6 +326,10 @@
         }
 
         function submitOrder() {
+            if (!document.getElementById('personID').value.trim()) {
+                openNameDialog();
+                return;
+            }
             setCookie('personID', document.getElementById('personID').value);
             document.getElementById('output').innerText = '';
             document.getElementById('submitBtn').textContent = 'Submitting…';
