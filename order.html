@@ -36,7 +36,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>zeber</title>
     <link rel="icon" type="image/x-icon" href="favicon.ico">
-    <link rel="stylesheet" href="css/styles.css?v=4">
+    <link rel="stylesheet" href="css/styles.css?v=5">
     <script src="nav.js"></script>
 </head>
 
@@ -190,8 +190,55 @@
     </div>
 
     <div id="output"></div>
+
+    <!-- Lightbox -->
+    <div id="lightbox" onclick="lightboxBgClick(event)">
+        <button class="lightbox-close" onclick="closeLightbox()">&#x2715;</button>
+        <div id="lightbox-inner" onclick="lightboxBgClick(event)">
+            <img id="lightbox-img" onclick="toggleZoom()" src="" alt="">
+        </div>
+    </div>
+
     <script>
         includeHTML();
+
+        // Attach lightbox to all item images after page loads
+        document.addEventListener('DOMContentLoaded', function () {
+            document.querySelectorAll('.item-img').forEach(function (img) {
+                img.addEventListener('click', function () { openLightbox(this); });
+            });
+        });
+
+        function openLightbox(img) {
+            var lb = document.getElementById('lightbox');
+            var lbImg = document.getElementById('lightbox-img');
+            lbImg.src = img.src;
+            lbImg.alt = img.alt;
+            lbImg.classList.remove('zoomed');
+            lb.classList.add('active');
+            lb.scrollTop = 0;
+            lb.scrollLeft = 0;
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeLightbox() {
+            document.getElementById('lightbox').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        function lightboxBgClick(e) {
+            if (e.target.id === 'lightbox' || e.target.id === 'lightbox-inner') {
+                closeLightbox();
+            }
+        }
+
+        function toggleZoom() {
+            document.getElementById('lightbox-img').classList.toggle('zoomed');
+        }
+
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape') closeLightbox();
+        });
 
         function setCookie(name, value) {
             document.cookie = `${name}=${encodeURIComponent(value)}; path=/`;
