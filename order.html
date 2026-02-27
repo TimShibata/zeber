@@ -184,6 +184,7 @@
             <p class="dialog-title">&#128085; Choose shirt size(s)</p>
             <p class="dialog-sub">Ordering <strong id="sizeOrderQty">0</strong> shirt(s) &mdash; allocate sizes below.</p>
             <div id="sizeOptions"></div>
+            <p id="preorderNotice" class="preorder-notice"></p>
             <p class="size-remaining">Still to allocate: <strong id="sizeRemaining">0</strong></p>
             <div class="dialog-actions">
                 <button id="sizeConfirmBtn" class="dialog-btn dialog-btn-primary" onclick="confirmSizes()" disabled>Confirm</button>
@@ -344,10 +345,12 @@
         // ── Submit flow ──────────────────────────────────────────────────
         var _submitPending = false;
         var _sizeSelections = { S: 0, M: 0, L: 0, XL: 0 };
+        var _preorderSelections = { S: 1, M: 1, L: 1, XL: 1 };
         var _inventory      = {};
         var _tshirtOrderQty = 0;
         var SUPABASE_URL      = 'https://dpsmpuigeadjpjodbvcq.supabase.co';
         var SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRwc21wdWlnZWFkanBqb2RidmNxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzE3OTI0NTksImV4cCI6MjA4NzM2ODQ1OX0.aki7zue7xfSfldOkua6KBNM3fZtr0xc4p7qmHgVsdDc';
+        var PREORDER_FUNCTION_URL = 'https://dpsmpuigeadjpjodbvcq.supabase.co/functions/v1/submit-tshirt-preorder';
 
         function submitOrder() {
             if (!document.getElementById('personID').value.trim()) {
@@ -371,7 +374,9 @@
         async function openSizePicker(qty) {
             _tshirtOrderQty = qty;
             _sizeSelections = { S: 0, M: 0, L: 0, XL: 0 };
+            _preorderSelections = { S: 1, M: 1, L: 1, XL: 1 };
             document.getElementById('sizeOrderQty').textContent = qty;
+            setPreorderNotice('');
 
             try {
                 var resp = await fetch(
@@ -393,16 +398,32 @@
                 var div = document.createElement('div');
                 div.className = 'size-option' + (soldout ? ' soldout' : '');
                 div.id = 'sizeOpt_' + size;
-                div.innerHTML =
-                    '<div class="size-label">'
-                        + '<span class="size-name">' + size + '</span>'
-                        + '<span class="size-stock">' + (soldout ? 'Sold out' : avail + ' available') + '</span>'
-                    + '</div>'
-                    + '<div class="item-stepper">'
-                        + '<button class="stepper-btn" onclick="adjustSize(\'' + size + '\', -1)"' + (soldout ? ' disabled' : '') + '>&#x2212;</button>'
-                        + '<span class="stepper-qty" id="sizeQty_' + size + '">0</span>'
-                        + '<button class="stepper-btn" onclick="adjustSize(\'' + size + '\', 1)"' + (soldout ? ' disabled' : '') + '>+</button>'
-                    + '</div>';
+                if (soldout) {
+                    div.innerHTML =
+                        '<div class="size-label">'
+                            + '<span class="size-name">' + size + '</span>'
+                            + '<span class="size-stock">Sold out</span>'
+                        + '</div>'
+                        + '<div class="size-preorder-inline">'
+                            + '<div class="item-stepper soldout-stepper">'
+                                + '<button class="stepper-btn" onclick="adjustPreorderQty(\'' + size + '\', -1)">&#x2212;</button>'
+                                + '<span class="stepper-qty" id="preQty_' + size + '">1</span>'
+                                + '<button class="stepper-btn" onclick="adjustPreorderQty(\'' + size + '\', 1)">+</button>'
+                            + '</div>'
+                            + '<button class="dialog-btn dialog-btn-secondary preorder-btn" id="preBtn_' + size + '" onclick="submitSizePreorder(\'' + size + '\')">Pre-order</button>'
+                        + '</div>';
+                } else {
+                    div.innerHTML =
+                        '<div class="size-label">'
+                            + '<span class="size-name">' + size + '</span>'
+                            + '<span class="size-stock">' + avail + ' available</span>'
+                        + '</div>'
+                        + '<div class="item-stepper">'
+                            + '<button class="stepper-btn" onclick="adjustSize(\'' + size + '\', -1)">&#x2212;</button>'
+                            + '<span class="stepper-qty" id="sizeQty_' + size + '">0</span>'
+                            + '<button class="stepper-btn" onclick="adjustSize(\'' + size + '\', 1)">+</button>'
+                        + '</div>';
+                }
                 container.appendChild(div);
             });
 
@@ -432,6 +453,60 @@
 
         function closeSizePicker() {
             document.getElementById('sizePickerBg').classList.remove('active');
+        }
+
+        function setPreorderNotice(message, isError) {
+            var el = document.getElementById('preorderNotice');
+            el.textContent = message || '';
+            el.classList.toggle('error', !!isError);
+            el.classList.toggle('success', !!message && !isError);
+        }
+
+        function adjustPreorderQty(size, delta) {
+            var current = _preorderSelections[size] || 1;
+            var next = Math.max(1, current + delta);
+            _preorderSelections[size] = next;
+            document.getElementById('preQty_' + size).textContent = next;
+        }
+
+        function submitSizePreorder(size) {
+            var person = (document.getElementById('personID').value || '').trim();
+            if (!person) {
+                setPreorderNotice('Set your name before pre-ordering.', true);
+                openNameDialog();
+                return;
+            }
+
+            var qty = _preorderSelections[size] || 1;
+            var button = document.getElementById('preBtn_' + size);
+            var originalText = button.textContent;
+            button.disabled = true;
+            button.textContent = 'Saving...';
+            setPreorderNotice('');
+
+            fetch(PREORDER_FUNCTION_URL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    person: person,
+                    size: size,
+                    requested_quantity: qty
+                })
+            })
+                .then(function (response) { return response.json(); })
+                .then(function (data) {
+                    if (!data.success) {
+                        throw new Error(data.error || 'Unable to save pre-order.');
+                    }
+                    setPreorderNotice('Pre-order saved for ' + size + ' x' + qty + '.', false);
+                })
+                .catch(function (error) {
+                    setPreorderNotice(error.message || 'Network error while saving pre-order.', true);
+                })
+                .finally(function () {
+                    button.disabled = false;
+                    button.textContent = originalText;
+                });
         }
 
         function confirmSizes() {

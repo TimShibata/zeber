@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<script>
+    function includeHTML() {
+        var z, i, elmnt, file, xhttp;
+        z = document.getElementsByTagName("*");
+        for (i = 0; i < z.length; i++) {
+            elmnt = z[i];
+            file = elmnt.getAttribute("nav-bar");
+            if (file) {
+                xhttp = new XMLHttpRequest();
+                xhttp.onreadystatechange = function () {
+                    if (this.readyState == 4) {
+                        if (this.status == 200) { elmnt.innerHTML = this.responseText; }
+                        if (this.status == 404) { elmnt.innerHTML = "Page not found."; }
+                        elmnt.removeAttribute("nav-bar");
+                        includeHTML();
+                    }
+                }
+                xhttp.open("GET", file, true);
+                xhttp.send();
+                return;
+            }
+        }
+    };
+</script>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>zeber pre-orders</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="stylesheet" href="css/styles.css?v=9">
+    <script src="nav.js"></script>
+</head>
+
+<body>
+    <div nav-bar="nav_bar.html"></div>
+
+    <div class="content-container preorder-page" style="margin-top: 90px;">
+        <h1 class="h2-title">T-Shirt Pre-Orders</h1>
+        <p id="preorderStatus" class="main-text">Loading pre-orders...</p>
+
+        <div class="preorder-totals" id="preorderTotals" style="display:none;">
+            <div class="preorder-total-card"><span class="preorder-total-label">S</span><span class="preorder-total-value" id="totalS">0</span></div>
+            <div class="preorder-total-card"><span class="preorder-total-label">M</span><span class="preorder-total-value" id="totalM">0</span></div>
+            <div class="preorder-total-card"><span class="preorder-total-label">L</span><span class="preorder-total-value" id="totalL">0</span></div>
+            <div class="preorder-total-card"><span class="preorder-total-label">XL</span><span class="preorder-total-value" id="totalXL">0</span></div>
+            <div class="preorder-total-card overall"><span class="preorder-total-label">Overall</span><span class="preorder-total-value" id="totalOverall">0</span></div>
+        </div>
+
+        <div class="preorder-table-wrap" id="preorderTableWrap" style="display:none;">
+            <table class="preorder-table" id="preorderTable">
+                <thead>
+                    <tr>
+                        <th>Time (UTC)</th>
+                        <th>Person</th>
+                        <th>Size</th>
+                        <th>Quantity</th>
+                    </tr>
+                </thead>
+                <tbody id="preorderRows"></tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        includeHTML();
+
+        var REPORT_FUNCTION_URL = 'https://dpsmpuigeadjpjodbvcq.supabase.co/functions/v1/get-tshirt-preorders';
+
+        function formatUtc(isoString) {
+            if (!isoString) return '';
+            var d = new Date(isoString);
+            if (isNaN(d.getTime())) return isoString;
+            return d.getUTCFullYear() + '-'
+                + String(d.getUTCMonth() + 1).padStart(2, '0') + '-'
+                + String(d.getUTCDate()).padStart(2, '0') + ' '
+                + String(d.getUTCHours()).padStart(2, '0') + ':'
+                + String(d.getUTCMinutes()).padStart(2, '0');
+        }
+
+        function renderTotals(totals) {
+            document.getElementById('totalS').textContent = totals.by_size.S || 0;
+            document.getElementById('totalM').textContent = totals.by_size.M || 0;
+            document.getElementById('totalL').textContent = totals.by_size.L || 0;
+            document.getElementById('totalXL').textContent = totals.by_size.XL || 0;
+            document.getElementById('totalOverall').textContent = totals.overall || 0;
+            document.getElementById('preorderTotals').style.display = '';
+        }
+
+        function renderRows(rows) {
+            var tbody = document.getElementById('preorderRows');
+            tbody.innerHTML = '';
+
+            if (!rows.length) {
+                var tr = document.createElement('tr');
+                tr.innerHTML = '<td colspan="4" class="preorder-empty">No pre-orders yet.</td>';
+                tbody.appendChild(tr);
+            } else {
+                rows.forEach(function (row) {
+                    var tr = document.createElement('tr');
+                    tr.innerHTML =
+                        '<td>' + formatUtc(row.created_at) + '</td>' +
+                        '<td>' + (row.person || '') + '</td>' +
+                        '<td>' + (row.size || '') + '</td>' +
+                        '<td>' + (row.requested_quantity || 0) + '</td>';
+                    tbody.appendChild(tr);
+                });
+            }
+
+            document.getElementById('preorderTableWrap').style.display = '';
+        }
+
+        async function loadPreorders() {
+            var status = document.getElementById('preorderStatus');
+
+            try {
+                var response = await fetch(REPORT_FUNCTION_URL);
+                var data = await response.json();
+
+                if (!data.success) {
+                    throw new Error(data.error || 'Failed to load pre-orders.');
+                }
+
+                renderTotals(data.totals || { by_size: { S: 0, M: 0, L: 0, XL: 0 }, overall: 0 });
+                renderRows(data.preorders || []);
+                status.textContent = 'Showing latest pre-order demand.';
+            } catch (error) {
+                status.textContent = (error && error.message) ? error.message : 'Could not load pre-orders.';
+            }
+        }
+
+        loadPreorders();
+    </script>
+</body>
+
+</html>

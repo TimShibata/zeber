@@ -619,7 +619,7 @@ img {
 
 .size-option:last-child { border-bottom: none; }
 
-.size-option.soldout { opacity: 0.38; pointer-events: none; }
+.size-option.soldout { opacity: 1; }
 
 .size-label {
   display: flex;
@@ -637,6 +637,34 @@ img {
   font-size: 0.78rem;
   color: #777;
 }
+
+.size-preorder-inline {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.soldout-stepper .stepper-btn,
+.soldout-stepper .stepper-qty {
+  min-width: 34px;
+  height: 34px;
+}
+
+.preorder-btn {
+  padding: 8px 12px;
+  font-size: 0.85rem;
+}
+
+.preorder-notice {
+  margin: 10px 0 0;
+  min-height: 18px;
+  text-align: center;
+  font-family: "Consolas", monospace;
+  font-size: 0.85rem;
+}
+
+.preorder-notice.success { color: #0a7a2f; }
+.preorder-notice.error { color: #b32020; }
 
 .size-remaining {
   text-align: center;
@@ -681,6 +709,80 @@ img {
   background: #999;
   cursor: default;
   transform: none;
+}
+
+/* ── Pre-orders report page ───────────────────────── */
+.preorder-page {
+  width: 100%;
+}
+
+.preorder-totals {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 10px;
+  margin: 16px 0;
+}
+
+.preorder-total-card {
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: #fff;
+}
+
+.preorder-total-card.overall {
+  border-color: #0051ff;
+}
+
+.preorder-total-label {
+  font-size: 0.8rem;
+  color: #666;
+}
+
+.preorder-total-value {
+  font-size: 1.35rem;
+  color: #0051ff;
+  font-weight: 700;
+  margin-top: 4px;
+}
+
+.preorder-table-wrap {
+  overflow-x: auto;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  background: #fff;
+}
+
+.preorder-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.preorder-table th,
+.preorder-table td {
+  font-family: "Consolas", monospace;
+  text-align: left;
+  padding: 10px;
+  border-bottom: 1px solid #eee;
+}
+
+.preorder-table thead th {
+  background: #f7f9ff;
+  color: #333;
+  font-size: 0.9rem;
+}
+
+.preorder-table tbody td {
+  font-size: 0.9rem;
+  color: #444;
+}
+
+.preorder-empty {
+  text-align: center !important;
+  color: #777 !important;
 }
 
 /* Extra bottom padding so last item isn't hidden behind footer */
