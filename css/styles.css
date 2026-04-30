@@ -359,6 +359,14 @@ img {
   flex-shrink: 0;
 }
 
+.beverage-delivery-img {
+  object-position: 95% center;
+}
+
+.redball-tickets-img {
+  object-position: center 28%;
+}
+
 .item-info {
   flex: 1;
   display: flex;
