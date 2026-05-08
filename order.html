@@ -251,25 +251,49 @@
             }
         });
 
+        var PERSON_STORAGE_KEY = 'zeberPersonName';
+
         function setCookie(name, value) {
-            document.cookie = `${name}=${encodeURIComponent(value)}; path=/`;
+            document.cookie = name + '=' + encodeURIComponent(value)
+                + '; path=/; max-age=31536000; SameSite=Lax';
         }
 
         function getCookie(name) {
-            const cookies = document.cookie.split('; ');
-            for (const cookie of cookies) {
-                const [cookieName, cookieValue] = cookie.split('=');
-                if (cookieName === name) return decodeURIComponent(cookieValue || '');
+            var prefix = name + '=';
+            var cookies = document.cookie ? document.cookie.split(';') : [];
+            for (var i = 0; i < cookies.length; i++) {
+                var cookie = cookies[i].trim();
+                if (cookie.indexOf(prefix) === 0) {
+                    return decodeURIComponent(cookie.substring(prefix.length));
+                }
             }
-            return null;
+            return '';
         }
 
-        window.onload = function () {
-            const saved = getCookie('personID');
+        function setStoredPersonName(name) {
+            try {
+                localStorage.setItem(PERSON_STORAGE_KEY, name);
+            } catch (e) {
+                // Ignore storage failures and fall back to cookies.
+            }
+            setCookie('personID', name);
+        }
+
+        function getStoredPersonName() {
+            try {
+                var localValue = localStorage.getItem(PERSON_STORAGE_KEY);
+                if (localValue) return localValue;
+            } catch (e) {
+                // Ignore storage failures and fall back to cookies.
+            }
+            return getCookie('personID');
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            var saved = getStoredPersonName();
             if (saved) setPersonName(saved);
             // Name is no longer auto-prompted — user sets it at submit time
-        };
-        window.onload();
+        });
 
         function setPersonName(name) {
             document.getElementById('personID').value = name;
@@ -304,7 +328,7 @@
                 return;
             }
             setPersonName(name);
-            setCookie('personID', name);
+            setStoredPersonName(name);
             document.getElementById('nameDialogBg').classList.remove('active');
             if (_submitPending) {
                 _submitPending = false;
@@ -518,7 +542,7 @@
 
         // ── Actual network submit ────────────────────────────────────────
         function doSubmit(sizes) {
-            setCookie('personID', document.getElementById('personID').value);
+            setStoredPersonName(document.getElementById('personID').value);
             document.getElementById('output').innerText = '';
             document.getElementById('submitBtn').textContent = 'Submitting\u2026';
             document.getElementById('submitBtn').disabled = true;
