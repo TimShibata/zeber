@@ -47,6 +47,7 @@
             <div class="preorder-total-card"><span class="preorder-total-label">M</span><span class="preorder-total-value" id="totalM">0</span></div>
             <div class="preorder-total-card"><span class="preorder-total-label">L</span><span class="preorder-total-value" id="totalL">0</span></div>
             <div class="preorder-total-card"><span class="preorder-total-label">XL</span><span class="preorder-total-value" id="totalXL">0</span></div>
+            <div class="preorder-total-card"><span class="preorder-total-label">XXL</span><span class="preorder-total-value" id="totalXXL">0</span></div>
             <div class="preorder-total-card overall"><span class="preorder-total-label">Overall</span><span class="preorder-total-value" id="totalOverall">0</span></div>
         </div>
 
@@ -86,6 +87,7 @@
             document.getElementById('totalM').textContent = totals.by_size.M || 0;
             document.getElementById('totalL').textContent = totals.by_size.L || 0;
             document.getElementById('totalXL').textContent = totals.by_size.XL || 0;
+            document.getElementById('totalXXL').textContent = totals.by_size.XXL || 0;
             document.getElementById('totalOverall').textContent = totals.overall || 0;
             document.getElementById('preorderTotals').style.display = '';
         }
@@ -124,7 +126,7 @@
                     throw new Error(data.error || 'Failed to load pre-orders.');
                 }
 
-                renderTotals(data.totals || { by_size: { S: 0, M: 0, L: 0, XL: 0 }, overall: 0 });
+                renderTotals(data.totals || { by_size: { S: 0, M: 0, L: 0, XL: 0, XXL: 0 }, overall: 0 });
                 renderRows(data.preorders || []);
                 status.textContent = 'Showing latest pre-order demand.';
             } catch (error) {

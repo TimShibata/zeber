@@ -368,8 +368,8 @@
 
         // ── Submit flow ──────────────────────────────────────────────────
         var _submitPending = false;
-        var _sizeSelections = { S: 0, M: 0, L: 0, XL: 0 };
-        var _preorderSelections = { S: 1, M: 1, L: 1, XL: 1 };
+        var _sizeSelections = { S: 0, M: 0, L: 0, XL: 0, XXL: 0 };
+        var _preorderSelections = { S: 1, M: 1, L: 1, XL: 1, XXL: 1 };
         var _inventory      = {};
         var _tshirtOrderQty = 0;
         var SUPABASE_URL      = 'https://dpsmpuigeadjpjodbvcq.supabase.co';
@@ -397,8 +397,8 @@
         // ── Size picker ──────────────────────────────────────────────────
         async function openSizePicker(qty) {
             _tshirtOrderQty = qty;
-            _sizeSelections = { S: 0, M: 0, L: 0, XL: 0 };
-            _preorderSelections = { S: 1, M: 1, L: 1, XL: 1 };
+            _sizeSelections = { S: 0, M: 0, L: 0, XL: 0, XXL: 0 };
+            _preorderSelections = { S: 1, M: 1, L: 1, XL: 1, XXL: 1 };
             document.getElementById('sizeOrderQty').textContent = qty;
             setPreorderNotice('');
 
@@ -411,12 +411,12 @@
                 _inventory = {};
                 for (var row of rows) _inventory[row.size] = row.quantity_available;
             } catch (e) {
-                _inventory = { S: 99, M: 99, L: 99, XL: 99 };
+                _inventory = { S: 99, M: 99, L: 99, XL: 99, XXL: 99 };
             }
 
             var container = document.getElementById('sizeOptions');
             container.innerHTML = '';
-            ['S', 'M', 'L', 'XL'].forEach(function(size) {
+            ['S', 'M', 'L', 'XL', 'XXL'].forEach(function(size) {
                 var avail  = _inventory[size] || 0;
                 var soldout = avail === 0;
                 var div = document.createElement('div');
@@ -558,6 +558,7 @@
                 out_str += '&tshirt_m='  + (sizes.M  || 0);
                 out_str += '&tshirt_l='  + (sizes.L  || 0);
                 out_str += '&tshirt_xl=' + (sizes.XL || 0);
+                out_str += '&tshirt_xxl=' + (sizes.XXL || 0);
             }
 
             var supabaseFunctionURL = 'https://dpsmpuigeadjpjodbvcq.supabase.co/functions/v1/submit-order';
