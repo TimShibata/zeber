@@ -45,11 +45,11 @@
 
     <div class="content-container" style="margin-top: 70px;">
         <div id="menuItems">
-            <div class="menu-item" data-price="10">
+            <div class="menu-item" data-price="0.10">
                 <img class="item-img beverage-delivery-img" src="order_files/cool_lemonade.jpg" alt="Delicious Drinks">
                 <div class="item-info">
                     <span class="item-name">Beverage Delivery</span>
-                    <span class="item-price">10&#162;</span>
+                    <span class="item-price">$0.10</span>
                 </div>
                 <div class="item-stepper">
                     <button class="stepper-btn" onclick="adjust('num1', -1)">&#x2212;</button>
@@ -59,11 +59,11 @@
                 </div>
             </div>
 
-            <div class="menu-item" data-price="10">
+            <div class="menu-item" data-price="0.10">
                 <img class="item-img" src="order_files/chips_and_guacamole.jpg" alt="chips">
                 <div class="item-info">
                     <span class="item-name">Chips</span>
-                    <span class="item-price">10&#162;</span>
+                    <span class="item-price">$0.10</span>
                 </div>
                 <div class="item-stepper">
                     <button class="stepper-btn" onclick="adjust('num2', -1)">&#x2212;</button>
@@ -73,11 +73,11 @@
                 </div>
             </div>
 
-            <div class="menu-item" data-price="5">
+            <div class="menu-item" data-price="0.05">
                 <img class="item-img" src="order_files/chair.jpg" alt="folding chair">
                 <div class="item-info">
                     <span class="item-name">Chair Moving Services</span>
-                    <span class="item-price">5&#162;</span>
+                    <span class="item-price">$0.05</span>
                 </div>
                 <div class="item-stepper">
                     <button class="stepper-btn" onclick="adjust('num3', -1)">&#x2212;</button>
@@ -87,11 +87,11 @@
                 </div>
             </div>
 
-            <div class="menu-item" data-price="15">
+            <div class="menu-item" data-price="0.15">
                 <img class="item-img" src="order_files/hammock.jpeg" alt="hammock">
                 <div class="item-info">
                     <span class="item-name">Hammock Rental</span>
-                    <span class="item-price">15&#162; / hr</span>
+                    <span class="item-price">$0.15 / hr</span>
                 </div>
                 <div class="item-stepper">
                     <button class="stepper-btn" onclick="adjust('num4', -1)">&#x2212;</button>
@@ -101,11 +101,11 @@
                 </div>
             </div>
 
-            <div class="menu-item" data-price="10">
+            <div class="menu-item" data-price="0.10">
                 <img class="item-img redball-tickets-img" src="order_files/tim_redball.jpg" alt="redball entertainment">
                 <div class="item-info">
                     <span class="item-name">Redball Tickets</span>
-                    <span class="item-price">10&#162;</span>
+                    <span class="item-price">$0.10</span>
                 </div>
                 <div class="item-stepper">
                     <button class="stepper-btn" onclick="adjust('num5', -1)">&#x2212;</button>
@@ -115,11 +115,11 @@
                 </div>
             </div>
 
-            <div class="menu-item" data-price="10">
+            <div class="menu-item" data-price="0.10">
                 <img class="item-img" src="order_files/trophy-on-field-under-stadium-lights-at-night-photo.jpg" alt="redball tournament trophy">
                 <div class="item-info">
                     <span class="item-name">Redball Tournament Registration</span>
-                    <span class="item-price">10&#162;</span>
+                    <span class="item-price">$0.10</span>
                 </div>
                 <div class="item-stepper">
                     <button class="stepper-btn" onclick="adjust('num6', -1)">&#x2212;</button>
@@ -129,11 +129,11 @@
                 </div>
             </div>
 
-            <div class="menu-item" data-price="50">
+            <div class="menu-item" data-price="5.00">
                 <img class="item-img" src="order_files/zeber-shirt-model.png" alt="Zeber t-shirt">
                 <div class="item-info">
                     <span class="item-name">T-Shirt</span>
-                    <span class="item-price">50&#162;</span>
+                    <span class="item-price">$5.00</span>
                 </div>
                 <div class="item-stepper">
                     <button class="stepper-btn" onclick="adjust('num7', -1)">&#x2212;</button>
@@ -142,11 +142,11 @@
                     <button class="stepper-btn" onclick="adjust('num7', 1)">+</button>
                 </div>
             </div>
-            <div class="menu-item" data-price="15">
+            <div class="menu-item" data-price="0.15">
                 <img class="item-img" src="order_files/cowbell.png" alt="Cowbell">
                 <div class="item-info">
                     <span class="item-name">Cowbell Rental</span>
-                    <span class="item-price">15&#162; / hr</span>
+                    <span class="item-price">$0.15 / hr</span>
                 </div>
                 <div class="item-stepper">
                     <button class="stepper-btn" onclick="adjust('num8', -1)">&#x2212;</button>
@@ -154,14 +154,29 @@
                     <input type="hidden" id="num8" value="0">
                     <button class="stepper-btn" onclick="adjust('num8', 1)">+</button>
                 </div>
-            </div>        </div>
+            </div>
+
+            <div class="menu-item" data-price="0.15">
+                <img class="item-img" src="order_files/drink-koozie.jpg" alt="Drink koozie">
+                <div class="item-info">
+                    <span class="item-name">Drink Koozie Rental</span>
+                    <span class="item-price">$0.15 / drink</span>
+                </div>
+                <div class="item-stepper">
+                    <button class="stepper-btn" onclick="adjust('num9', -1)">&#x2212;</button>
+                    <span class="stepper-qty" id="qty_num9">0</span>
+                    <input type="hidden" id="num9" value="0">
+                    <button class="stepper-btn" onclick="adjust('num9', 1)">+</button>
+                </div>
+            </div>
+        </div>
     </div>
 
     <!-- Sticky order footer -->
     <div class="order-footer">
         <button id="personBtn" class="person-btn" onclick="openNameDialog()">&#128100; <span id="personDisplay">Tap to set name</span></button>
         <input type="hidden" id="personID" value="">
-        <span class="footer-total" id="totalDisplay">0&#162;</span>
+        <span class="footer-total" id="totalDisplay">$0.00</span>
         <button id="submitBtn" class="submit-btn" onclick="submitOrder()">Submit Order</button>
     </div>
 
@@ -353,17 +368,11 @@
             var total = 0;
             document.querySelectorAll('#menuItems .menu-item').forEach(function (item) {
                 var qty = parseInt(item.querySelector('input[type="hidden"]').value);
-                var price = parseInt(item.dataset.price);
+                var price = parseFloat(item.dataset.price);
                 total += qty * price;
             });
             var display = document.getElementById('totalDisplay');
-            if (total === 0) {
-                display.textContent = '0\u00A2';
-            } else if (total < 100) {
-                display.textContent = total + '\u00A2';
-            } else {
-                display.textContent = '$' + (total / 100).toFixed(2);
-            }
+            display.textContent = '$' + total.toFixed(2);
         }
 
         // ── Submit flow ──────────────────────────────────────────────────
