@@ -1,0 +1,869 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<script>
+    function includeHTML() {
+        var z, i, elmnt, file, xhttp;
+        z = document.getElementsByTagName("*");
+        for (i = 0; i < z.length; i++) {
+            elmnt = z[i];
+            file = elmnt.getAttribute("nav-bar");
+            if (file) {
+                xhttp = new XMLHttpRequest();
+                xhttp.onreadystatechange = function () {
+                    if (this.readyState == 4) {
+                        if (this.status == 200) { elmnt.innerHTML = this.responseText; }
+                        if (this.status == 404) { elmnt.innerHTML = "Page not found."; }
+                        elmnt.removeAttribute("nav-bar");
+                        includeHTML();
+                    }
+                }
+                xhttp.open("GET", file, true);
+                xhttp.send();
+                return;
+            }
+        }
+    };
+</script>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>zeber – Admin Dashboard</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="stylesheet" href="css/styles.css?v=9">
+    <script src="nav.js"></script>
+    <style>
+        .admin-layout {
+            display: flex;
+            flex-direction: column;
+            gap: 32px;
+            margin-top: 20px;
+            padding-bottom: 60px;
+        }
+
+        @media (min-width: 1024px) {
+            .admin-layout {
+                display: grid;
+                grid-template-columns: 1fr 2fr;
+                align-items: start;
+            }
+        }
+
+        .section-card {
+            background: #ffffff;
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+            border: 1px solid #e1e4e8;
+        }
+
+        .section-title {
+            font-family: "Consolas", monospace;
+            font-size: 1.5rem;
+            color: #1a1a1a;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #0051ff;
+            padding-bottom: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* Gift card grid */
+        .giftcards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+            gap: 12px;
+        }
+
+        .giftcard-item {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 12px;
+            text-align: center;
+            transition: all 0.2s;
+        }
+
+        .giftcard-item.negative {
+            background: #fef2f2;
+            border-color: #fca5a5;
+        }
+
+        .giftcard-num {
+            font-family: "Consolas", monospace;
+            font-size: 0.9rem;
+            color: #64748b;
+            margin-bottom: 4px;
+        }
+
+        .giftcard-balance {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #0f172a;
+            margin-bottom: 8px;
+        }
+
+        .giftcard-item.negative .giftcard-balance {
+            color: #dc2626;
+        }
+
+        .giftcard-actions {
+            display: flex;
+            gap: 4px;
+        }
+
+        .giftcard-input {
+            width: 100%;
+            padding: 6px;
+            font-size: 0.85rem;
+            border: 1px solid #cbd5e1;
+            border-radius: 6px;
+            text-align: center;
+            font-family: "Consolas", monospace;
+        }
+
+        .giftcard-btn {
+            background: #0051ff;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            padding: 6px 8px;
+            font-size: 0.85rem;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background 0.2s;
+        }
+
+        .giftcard-btn:hover {
+            background: #003db3;
+        }
+
+        /* Orders layout */
+        .orders-list {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .order-card {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 16px;
+            padding: 16px 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        @media (min-width: 640px) {
+            .order-card {
+                flex-direction: row;
+                align-items: center;
+                justify-content: space-between;
+            }
+        }
+
+        .order-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+
+        .order-details {
+            flex: 1;
+        }
+
+        .order-header {
+            display: flex;
+            align-items: baseline;
+            gap: 12px;
+            margin-bottom: 6px;
+        }
+
+        .order-person {
+            font-family: "Consolas", monospace;
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #0f172a;
+        }
+
+        .order-time {
+            font-size: 0.8rem;
+            color: #64748b;
+        }
+
+        .order-items {
+            font-size: 0.9rem;
+            color: #475569;
+            margin-bottom: 8px;
+            line-height: 1.4;
+        }
+
+        .order-items div {
+            margin-bottom: 2px;
+        }
+
+        .order-total {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #0f172a;
+        }
+
+        /* Highlight buttons */
+        .status-btn {
+            border: none;
+            border-radius: 12px;
+            padding: 12px 20px;
+            font-size: 0.95rem;
+            font-weight: 700;
+            cursor: pointer;
+            text-align: center;
+            min-width: 140px;
+            transition: all 0.2s;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .status-btn.unpaid {
+            background: #ef4444;
+            color: white;
+        }
+
+        .status-btn.unpaid:hover {
+            background: #dc2626;
+            box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
+        }
+
+        .status-btn.paid {
+            background: #10b981;
+            color: white;
+            cursor: default;
+        }
+
+        .status-btn.paid:hover {
+            background: #10b981;
+        }
+
+        /* Modal styling */
+        .modal-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(15, 23, 42, 0.4);
+            backdrop-filter: blur(6px);
+            z-index: 2000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 16px;
+        }
+
+        .modal-bg.active {
+            display: flex;
+        }
+
+        .modal-box {
+            background: white;
+            border-radius: 20px;
+            max-width: 480px;
+            width: 100%;
+            padding: 24px;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+            animation: modalFadeIn 0.2s ease-out;
+            position: relative;
+        }
+
+        @keyframes modalFadeIn {
+            from { transform: scale(0.95); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            background: #f1f5f9;
+            border: none;
+            border-radius: 50%;
+            width: 32px;
+            height: 32px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #64748b;
+        }
+
+        .modal-close:hover {
+            background: #e2e8f0;
+            color: #0f172a;
+        }
+
+        .modal-title {
+            font-family: "Consolas", monospace;
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: #0f172a;
+        }
+
+        .modal-summary {
+            background: #f8fafc;
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 20px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .modal-summary-title {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: #64748b;
+            margin-bottom: 8px;
+        }
+
+        .modal-total-display {
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: #0051ff;
+            margin-top: 8px;
+            border-top: 1px dashed #cbd5e1;
+            padding-top: 8px;
+        }
+
+        .reconcile-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .reconcile-block {
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .reconcile-block-title {
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: #475569;
+            margin-bottom: 4px;
+        }
+
+        .cash-btn {
+            background: #10b981;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 10px 16px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background 0.2s;
+            text-align: center;
+        }
+
+        .cash-btn:hover {
+            background: #059669;
+        }
+
+        .giftcard-select-row {
+            display: flex;
+            gap: 8px;
+        }
+
+        .giftcard-select {
+            flex: 1;
+            padding: 10px;
+            font-size: 0.95rem;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            font-family: "Consolas", monospace;
+        }
+
+        .giftcard-submit-btn {
+            background: #0051ff;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 10px 16px;
+            font-size: 0.95rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .giftcard-submit-btn:hover {
+            background: #003db3;
+        }
+
+        .loading-indicator {
+            text-align: center;
+            padding: 40px;
+            font-size: 1.2rem;
+            color: #64748b;
+            font-family: "Consolas", monospace;
+        }
+    </style>
+</head>
+
+<body>
+    <div nav-bar="nav_bar.html"></div>
+
+    <h1 class="page-title">Admin Dashboard</h1>
+
+    <div class="content-container" style="margin-top: 70px;">
+        <div class="admin-layout">
+            
+            <!-- Left panel: Gift Card balances -->
+            <div class="section-card">
+                <div class="section-title">
+                    <span>Gift Cards</span>
+                </div>
+                <div class="giftcards-grid" id="giftcardsGrid">
+                    <div class="loading-indicator">Loading...</div>
+                </div>
+            </div>
+
+            <!-- Right panel: All Orders -->
+            <div class="section-card">
+                <div class="section-title">
+                    <span>Order Reconciliation</span>
+                    <button class="giftcard-btn" onclick="loadDashboard()" style="padding: 4px 10px; font-size: 0.8rem;">Refresh</button>
+                </div>
+                <div class="orders-list" id="ordersList">
+                    <div class="loading-indicator">Loading orders...</div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Reconcile Modal -->
+    <div class="modal-bg" id="reconcileModal">
+        <div class="modal-box">
+            <button class="modal-close" onclick="closeReconcileModal()">&times;</button>
+            <div class="modal-title">Reconcile Order</div>
+            <div class="modal-summary" id="modalOrderSummary">
+                <!-- Set dynamically -->
+            </div>
+            <div class="reconcile-actions">
+                <!-- Cash Option -->
+                <div class="reconcile-block">
+                    <div class="reconcile-block-title">💵 Reconcile with Cash</div>
+                    <button class="cash-btn" onclick="reconcileWithCash()">Pay Cash</button>
+                </div>
+
+                <!-- Gift Card Option -->
+                <div class="reconcile-block">
+                    <div class="reconcile-block-title">🎁 Reconcile with Gift Card</div>
+                    <div class="giftcard-select-row" style="margin-bottom: 8px;">
+                        <select class="giftcard-select" id="reconcileGiftCardSelect">
+                            <!-- Populated dynamically -->
+                        </select>
+                        <button class="giftcard-submit-btn" onclick="reconcileWithGiftCard()">Submit</button>
+                    </div>
+                    <div style="display: flex; flex-direction: column; gap: 6px; border-top: 1px dashed #cbd5e1; padding-top: 10px; margin-top: 4px;">
+                        <button id="nfcScanBtn" class="giftcard-submit-btn" style="background: #64748b;" onclick="startNFCScan()">📟 Tap NFC Card</button>
+                        <div id="nfcStatusText" style="font-size: 0.8rem; text-align: center; color: #64748b; font-family: 'Consolas', monospace;">Tap button to scan card via phone NFC</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        var SUPABASE_URL = 'https://dpsmpuigeadjpjodbvcq.supabase.co';
+        var SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRwc21wdWlnZWFkanBqb2RidmNxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzE3OTI0NTksImV4cCI6MjA4NzM2ODQ1OX0.aki7zue7xfSfldOkua6KBNM3fZtr0xc4p7qmHgVsdDc';
+
+        const HEADERS = {
+            'apikey': SUPABASE_ANON_KEY,
+            'Authorization': 'Bearer ' + SUPABASE_ANON_KEY,
+            'Content-Type': 'application/json'
+        };
+
+        const ITEM_LABELS = {
+            beer_delivery: '🚚 Any Drink Delivery',
+            chips: '🥔 Chips',
+            chair_moving: '🪑 Chair Moving Services',
+            hammock_rental: '🌴 Hammock Rental (hrs)',
+            redball_tickets: '🔴 Redball Tickets',
+            redball_tournament: '🏆 Redball Tournament Reg',
+            cowbell_rental: '🐄 Cowbell Rental (hrs)',
+            drink_koozie_rental: '🥤 Drink Koozie Rental',
+            gift_cards: '🎁 Gift Cards',
+            spa: '🧖 Spa (hrs)',
+            tshirt: '👕 T-Shirt'
+        };
+
+        var _orders = [];
+        var _giftCards = [];
+        var _activeOrder = null;
+
+        // ── Web Audio Chimes ─────────────────────────────────────────────
+        function playSuccessTone() {
+            try {
+                var AudioContext = window.AudioContext || window.webkitAudioContext;
+                var ctx = new AudioContext();
+                var osc = ctx.createOscillator();
+                var gain = ctx.createGain();
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(523.25, ctx.currentTime); // C5
+                osc.frequency.setValueAtTime(659.25, ctx.currentTime + 0.1); // E5
+                gain.gain.setValueAtTime(0.15, ctx.currentTime);
+                gain.gain.linearRampToValueAtTime(0.01, ctx.currentTime + 0.3); // Fade out
+                osc.connect(gain);
+                gain.connect(ctx.destination);
+                osc.start();
+                osc.stop(ctx.currentTime + 0.3);
+            } catch (e) {
+                console.error("Audio error:", e);
+            }
+        }
+
+        function playErrorTone() {
+            try {
+                var AudioContext = window.AudioContext || window.webkitAudioContext;
+                var ctx = new AudioContext();
+                var osc = ctx.createOscillator();
+                var gain = ctx.createGain();
+                osc.type = 'sawtooth'; // Buzzy/harsh sound
+                osc.frequency.setValueAtTime(120, ctx.currentTime); // Low pitch
+                osc.frequency.linearRampToValueAtTime(80, ctx.currentTime + 0.4); // Slide down
+                gain.gain.setValueAtTime(0.35, ctx.currentTime);
+                gain.gain.linearRampToValueAtTime(0.01, ctx.currentTime + 0.4); // Fade out
+                osc.connect(gain);
+                gain.connect(ctx.destination);
+                osc.start();
+                osc.stop(ctx.currentTime + 0.4);
+            } catch (e) {
+                console.error("Audio error:", e);
+            }
+        }
+
+        // ── Load Dashboard Data ──────────────────────────────────────────
+        async function loadDashboard() {
+            try {
+                // Fetch Gift Cards
+                var gcResp = await fetch(SUPABASE_URL + '/rest/v1/gift_cards?select=*&order=id', { headers: HEADERS });
+                _giftCards = await gcResp.json();
+                renderGiftCards();
+
+                // Fetch Orders
+                var orderResp = await fetch(SUPABASE_URL + '/rest/v1/orders?select=*&order=created_at.desc', { headers: HEADERS });
+                _orders = await orderResp.json();
+                renderOrders();
+            } catch (e) {
+                console.error("Error loading dashboard data:", e);
+                document.getElementById('giftcardsGrid').innerHTML = '<div style="color: red; padding: 10px;">Failed to load.</div>';
+                document.getElementById('ordersList').innerHTML = '<div style="color: red; padding: 10px;">Failed to load.</div>';
+            }
+        }
+
+        // ── Render Gift Cards Grid ───────────────────────────────────────
+        function renderGiftCards() {
+            var container = document.getElementById('giftcardsGrid');
+            container.innerHTML = '';
+            _giftCards.forEach(function (card) {
+                var bal = parseFloat(card.balance || 0);
+                var isNeg = bal < 0;
+                var itemDiv = document.createElement('div');
+                itemDiv.className = 'giftcard-item' + (isNeg ? ' negative' : '');
+                
+                itemDiv.innerHTML = `
+                    <div class="giftcard-num">Card #${card.id} ${card.customer}</div>
+                    <div class="giftcard-balance">$${bal.toFixed(2)}</div>
+                    <div class="giftcard-actions">
+                        <input type="number" step="0.01" class="giftcard-input" id="gcInput_${card.id}" placeholder="0.00">
+                        <button class="giftcard-btn" onclick="updateGiftCardBalance(${card.id})">Set</button>
+                    </div>
+                `;
+                container.appendChild(itemDiv);
+            });
+        }
+
+        // ── Update Gift Card Balance Manually ────────────────────────────
+        async function updateGiftCardBalance(cardId) {
+            var input = document.getElementById('gcInput_' + cardId);
+            var val = parseFloat(input.value);
+            if (isNaN(val)) return;
+
+            try {
+                var resp = await fetch(SUPABASE_URL + '/rest/v1/gift_cards?id=eq.' + cardId, {
+                    method: 'PATCH',
+                    headers: HEADERS,
+                    body: JSON.stringify({ balance: val.toFixed(2) })
+                });
+                
+                if (resp.ok) {
+                    playSuccessTone();
+                    loadDashboard();
+                } else {
+                    alert('Error updating gift card balance');
+                }
+            } catch (e) {
+                console.error(e);
+                alert('Connection error while updating balance');
+            }
+        }
+
+        // ── Render Orders List ───────────────────────────────────────────
+        function renderOrders() {
+            var container = document.getElementById('ordersList');
+            container.innerHTML = '';
+
+            if (_orders.length === 0) {
+                container.innerHTML = '<div style="text-align:center; padding: 20px; color: #64748b;">No orders found.</div>';
+                return;
+            }
+
+            _orders.forEach(function (order) {
+                var card = document.createElement('div');
+                card.className = 'order-card';
+
+                var dateStr = new Date(order.created_at).toLocaleString();
+                var itemsHTML = getOrderItemsSummary(order);
+                var total = parseFloat(order.total_dollars || 0);
+                
+                var buttonClass = order.paid ? 'paid' : 'unpaid';
+                var buttonText = order.paid ? '✓ Paid' : 'Reconcile';
+                var buttonOnClick = order.paid ? '' : `onclick="openReconcileModal('${order.id}')"`;
+
+                card.innerHTML = `
+                    <div class="order-details">
+                        <div class="order-header">
+                            <span class="order-person">${order.person}</span>
+                            <span class="order-time">${dateStr}</span>
+                        </div>
+                        <div class="order-items">
+                            ${itemsHTML}
+                        </div>
+                        <div class="order-total">Total: $${total.toFixed(2)}</div>
+                    </div>
+                    <div>
+                        <button class="status-btn ${buttonClass}" ${buttonOnClick}>
+                            ${buttonText}
+                        </button>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function getOrderItemsSummary(order) {
+            var lines = [];
+            for (const [col, label] of Object.entries(ITEM_LABELS)) {
+                var qty = order[col] || 0;
+                if (qty > 0) {
+                    var str = `<div>${label} x${qty}`;
+                    if (col === 'tshirt' && order.tshirt_sizes) {
+                        var sizes = [];
+                        for (const [sz, q] of Object.entries(order.tshirt_sizes)) {
+                            if (q > 0) sizes.push(`${sz}:${q}`);
+                        }
+                        if (sizes.length > 0) {
+                            str += ` (${sizes.join(', ')})`;
+                        }
+                    }
+                    str += `</div>`;
+                    lines.push(str);
+                }
+            }
+            return lines.join('') || '<div>(no items selected)</div>';
+        }
+
+        // ── Modal Actions ────────────────────────────────────────────────
+        function openReconcileModal(orderId) {
+            _activeOrder = _orders.find(o => o.id === orderId);
+            if (!_activeOrder) return;
+
+            var itemsHTML = getOrderItemsSummary(_activeOrder);
+            var total = parseFloat(_activeOrder.total_dollars || 0);
+
+            document.getElementById('modalOrderSummary').innerHTML = `
+                <div class="modal-summary-title">Order for <strong>${_activeOrder.person}</strong></div>
+                <div style="font-size: 0.9rem; color: #475569; margin-bottom: 12px; line-height: 1.4;">
+                    ${itemsHTML}
+                </div>
+                <div class="modal-total-display">Total Amount: $${total.toFixed(2)}</div>
+            `;
+
+            // Populate Gift Card select dropdown
+            var select = document.getElementById('reconcileGiftCardSelect');
+            select.innerHTML = '';
+            _giftCards.forEach(function (card) {
+                var bal = parseFloat(card.balance || 0);
+                var option = document.createElement('option');
+                option.value = card.id;
+                option.textContent = `Card #${card.id}-${card.customer} (Bal: $${bal.toFixed(2)})`;
+                select.appendChild(option);
+            });
+
+            document.getElementById('reconcileModal').classList.add('active');
+        }
+
+        function closeReconcileModal() {
+            document.getElementById('reconcileModal').classList.remove('active');
+            _activeOrder = null;
+        }
+
+        // ── Reconcile with Cash ──────────────────────────────────────────
+        async function reconcileWithCash() {
+            if (!_activeOrder) return;
+            var orderId = _activeOrder.id;
+
+            try {
+                var resp = await fetch(SUPABASE_URL + '/rest/v1/orders?id=eq.' + orderId, {
+                    method: 'PATCH',
+                    headers: HEADERS,
+                    body: JSON.stringify({ paid: true })
+                });
+
+                if (resp.ok) {
+                    playSuccessTone();
+                    closeReconcileModal();
+                    loadDashboard();
+                } else {
+                    alert('Error marking order as paid');
+                }
+            } catch (e) {
+                console.error(e);
+                alert('Connection error during cash reconciliation');
+            }
+        }
+
+        // ── Reconcile with Gift Card ─────────────────────────────────────
+        async function reconcileWithGiftCard() {
+            if (!_activeOrder) return;
+            var orderId = _activeOrder.id;
+            var total = parseFloat(_activeOrder.total_dollars || 0);
+            
+            var select = document.getElementById('reconcileGiftCardSelect');
+            var cardId = parseInt(select.value);
+            var card = _giftCards.find(c => c.id === cardId);
+            if (!card) return;
+
+            var currentBalance = parseFloat(card.balance || 0);
+            var newBalance = currentBalance - total;
+
+            // Trigger error tone if balance goes negative
+            if (newBalance < 0) {
+                playErrorTone();
+            } else {
+                playSuccessTone();
+            }
+
+            try {
+                // 1. Deduct balance from gift card
+                var gcResp = await fetch(SUPABASE_URL + '/rest/v1/gift_cards?id=eq.' + cardId, {
+                    method: 'PATCH',
+                    headers: HEADERS,
+                    body: JSON.stringify({ balance: newBalance.toFixed(2) })
+                });
+
+                if (!gcResp.ok) {
+                    alert('Error updating gift card balance');
+                    return;
+                }
+
+                // 2. Mark order as paid
+                var orderResp = await fetch(SUPABASE_URL + '/rest/v1/orders?id=eq.' + orderId, {
+                    method: 'PATCH',
+                    headers: HEADERS,
+                    body: JSON.stringify({ paid: true })
+                });
+
+                if (orderResp.ok) {
+                    closeReconcileModal();
+                    loadDashboard();
+                } else {
+                    alert('Error marking order as paid');
+                }
+
+            } catch (e) {
+                console.error(e);
+                alert('Connection error during gift card reconciliation');
+            }
+        }
+        async function startNFCScan() {
+            const btn = document.getElementById('nfcScanBtn');
+            const statusText = document.getElementById('nfcStatusText');
+            
+            if (!('NDEFReader' in window)) {
+                statusText.textContent = "❌ Web NFC is not supported on this browser/device. (Try Android Chrome)";
+                statusText.style.color = "#dc2626";
+                playErrorTone();
+                return;
+            }
+
+            try {
+                const ndef = new NDEFReader();
+                btn.disabled = true;
+                btn.textContent = "⏳ Bring card close...";
+                statusText.textContent = "Scanning... Place NFC card near the back of your phone.";
+                statusText.style.color = "#0051ff";
+
+                await ndef.scan();
+
+                ndef.addEventListener("readingerror", () => {
+                    statusText.textContent = "❌ NFC read error. Try again.";
+                    statusText.style.color = "#dc2626";
+                    playErrorTone();
+                    btn.disabled = false;
+                    btn.textContent = "📟 Tap NFC Card";
+                });
+
+                ndef.addEventListener("reading", ({ message, serialNumber }) => {
+                    console.log(`> Serial Number: ${serialNumber}`);
+                    
+                    for (const record of message.records) {
+                        if (record.recordType === "text") {
+                            const textDecoder = new TextDecoder(record.encoding);
+                            const text = textDecoder.decode(record.data).trim();
+                            const num = parseInt(text, 10);
+                            
+                            if (!isNaN(num) && num >= 0 && num <= 9) {
+                                const select = document.getElementById('reconcileGiftCardSelect');
+                                select.value = num;
+
+                                select.dispatchEvent(new Event('change', { bubbles: true }));
+                                
+                                statusText.textContent = `✅ Selected Card #${num}!`;
+                                statusText.style.color = "#10b981";
+                                playSuccessTone();
+                                break;
+                            } else {
+                                statusText.textContent = `❌ Invalid card content: "${text}". Must be 0-9.`;
+                                statusText.style.color = "#dc2626";
+                                playErrorTone();
+                            }
+                        }
+                    }
+                    
+                    btn.disabled = false;
+                    btn.textContent = "📟 Tap NFC Card";
+                });
+
+            } catch (error) {
+                console.error("NFC Error:", error);
+                statusText.textContent = "❌ NFC access denied or failed: " + error.message;
+                statusText.style.color = "#dc2626";
+                playErrorTone();
+                btn.disabled = false;
+                btn.textContent = "📟 Tap NFC Card";
+            }
+        }
+
+        // ── Startup ──────────────────────────────────────────────────────
+        includeHTML();
+        loadDashboard();
+    </script>
+
+</html>
