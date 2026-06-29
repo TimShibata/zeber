@@ -758,38 +758,37 @@
                 playErrorTone();
             } else {
                 playSuccessTone();
-            }
-
-            try {
-                // 1. Deduct balance from gift card
-                var gcResp = await fetch(SUPABASE_URL + '/rest/v1/gift_cards?id=eq.' + cardId, {
-                    method: 'PATCH',
-                    headers: HEADERS,
-                    body: JSON.stringify({ balance: newBalance.toFixed(2) })
-                });
-
-                if (!gcResp.ok) {
-                    alert('Error updating gift card balance');
-                    return;
+                try {
+                    // 1. Deduct balance from gift card
+                    var gcResp = await fetch(SUPABASE_URL + '/rest/v1/gift_cards?id=eq.' + cardId, {
+                        method: 'PATCH',
+                        headers: HEADERS,
+                        body: JSON.stringify({ balance: newBalance.toFixed(2) })
+                    });
+    
+                    if (!gcResp.ok) {
+                        alert('Error updating gift card balance');
+                        return;
+                    }
+    
+                    // 2. Mark order as paid
+                    var orderResp = await fetch(SUPABASE_URL + '/rest/v1/orders?id=eq.' + orderId, {
+                        method: 'PATCH',
+                        headers: HEADERS,
+                        body: JSON.stringify({ paid: true })
+                    });
+    
+                    if (orderResp.ok) {
+                        closeReconcileModal();
+                        loadDashboard();
+                    } else {
+                        alert('Error marking order as paid');
+                    }
+    
+                } catch (e) {
+                    console.error(e);
+                    alert('Connection error during gift card reconciliation');
                 }
-
-                // 2. Mark order as paid
-                var orderResp = await fetch(SUPABASE_URL + '/rest/v1/orders?id=eq.' + orderId, {
-                    method: 'PATCH',
-                    headers: HEADERS,
-                    body: JSON.stringify({ paid: true })
-                });
-
-                if (orderResp.ok) {
-                    closeReconcileModal();
-                    loadDashboard();
-                } else {
-                    alert('Error marking order as paid');
-                }
-
-            } catch (e) {
-                console.error(e);
-                alert('Connection error during gift card reconciliation');
             }
         }
         async function startNFCScan() {
